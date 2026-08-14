@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobVault - Sign Up</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f8f8f8;
+        }
+
+        .signup-card {
+            border: none;
+            border-radius: 15px;
+        }
+
+        .form-control {
+            border-radius: 8px;
+        }
+
+        .form-control:focus {
+            border-color: #000;
+            box-shadow: 0 0 0 0.15rem rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-dark {
+            border-radius: 8px;
+        }
+
+        .navbar-brand {
+            letter-spacing: 1px;
+        }
+
+        footer {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg bg-black navbar-dark">
+            <div class="container">
+
+                <a class="navbar-brand fw-bold" href="index.html">
+                    JobVault
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="index.html">
+                                Home
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="login.html">
+                                Login
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+
+    <main>
+
+        <div class="container py-5">
+
+            <div class="row justify-content-center">
+
+                <div class="col-12 col-sm-10 col-md-8 col-lg-5">
+
+                    <div class="card signup-card shadow-sm p-4">
+
+                        <h2 class="text-center fw-bold mb-2">
+                            Create Account
+                        </h2>
+
+                        <p class="text-center text-secondary mb-4">
+                            Start tracking your job applications
+                        </p>
+
+                        <form onsubmit="handleSubmit(event)">
+
+                            <div class="mb-3">
+
+                                <label for="name" class="form-label">
+                                    Name
+                                </label>
+
+                                <input type="text" id="name" required class="form-control"
+                                    placeholder="Enter your name">
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label for="email" class="form-label">
+                                    Email
+                                </label>
+
+                                <input type="email" id="email" required class="form-control"
+                                    placeholder="Enter your email">
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label for="password" class="form-label">
+                                    Password
+                                </label>
+
+                                <input type="password" id="password" required class="form-control"
+                                    placeholder="Enter your password">
+
+                                <small class="text-secondary">
+                                    Minimum 5 characters, uppercase, number and special character.
+                                </small>
+
+                            </div>
+
+                            <div class="mb-4">
+
+                                <label for="confirmPassword" class="form-label">
+                                    Confirm Password
+                                </label>
+
+                                <input type="password" id="confirmPassword" required class="form-control"
+                                    placeholder="Confirm your password">
+
+                            </div>
+
+                            <button type="submit" class="btn btn-dark w-100">
+                                Sign Up
+                            </button>
+
+                        </form>
+
+                        <p class="text-center mt-4 mb-0">
+                            Already have an account?
+                            <a href="login.html" class="text-dark fw-semibold text-decoration-none">
+                                Login
+                            </a>
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <footer class="bg-black text-white">
+
+        <div class="container py-3">
+
+            <div class="text-center">
+
+                <h6 class="fw-bold mb-1">
+                    JobVault
+                </h6>
+
+                <p class="small text-secondary mb-2">
+                    Track your applications. Manage your career.
+                </p>
+
+                <p class="small mb-0">
+                    © 2026 JobVault
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script>
+
+        let name = document.getElementById("name");
+        let email = document.getElementById("email");
+        let password = document.getElementById("password");
+        let confirmPassword = document.getElementById("confirmPassword");
+
+        let handleSubmit = async (event) => {
+
+            event.preventDefault();
+
+            let pass = password.value;
+
+            if (pass.length < 5) {
+                alert("Password must contain at least 5 characters");
+                return;
+            }
+
+            let upperCase = false;
+
+            for (let i = 0; i < pass.length; i++) {
+                if (pass[i] >= "A" && pass[i] <= "Z") {
+                    upperCase = true;
+                    break;
+                }
+            }
+
+            if (!upperCase) {
+                alert("Password must contain at least one capital letter");
+                return;
+            }
+
+            let hasNumber = false;
+
+            for (let i = 0; i < pass.length; i++) {
+                if (pass[i] >= "0" && pass[i] <= "9") {
+                    hasNumber = true;
+                    break;
+                }
+            }
+
+            if (!hasNumber) {
+                alert("Password must contain at least one digit!");
+                return;
+            }
+
+            let specCharacters = "!@#$%^&*";
+            let hasSpec = false;
+
+            for (let i = 0; i < pass.length; i++) {
+                if (specCharacters.includes(pass[i])) {
+                    hasSpec = true;
+                    break;
+                }
+            }
+
+            if (!hasSpec) {
+                alert("Password must contain at least one special character");
+                return;
+            }
+
+            if (password.value !== confirmPassword.value) {
+                alert("Passwords do not match");
+                return;
+            }
+
+            let userEmail = email.value.toLowerCase();
+
+            let user = {
+                name: name.value,
+                email: userEmail,
+                password: password.value
+            };
+
+            let data = await fetch("http://localhost:3000/users");
+            let users = await data.json();
+
+            let existingUser = users.find((el) => {
+                return el.email.toLowerCase() === userEmail;
+            });
+
+            if (existingUser) {
+                alert("Email already registered");
+                return;
+            }
+
+            let response = await fetch("http://localhost:3000/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(user)
+            });
+
+            let result = await response.json();
+
+            console.log(result);
+
+            alert("Account created successfully");
+
+            window.location.href = "login.html";
+        };
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
