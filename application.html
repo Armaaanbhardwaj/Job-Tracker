@@ -476,8 +476,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        let editingApplicationId = null;
         let currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
         let isLoggedIn = sessionStorage.getItem("isLoggedIn");
+
+        if (isLoggedIn !== "true" || !currentUser) {
+            alert("Oops! You need to login first.");
+            window.location.href = "login.html";
+        }
 
         let company = document.getElementById("company");
         let position = document.getElementById("position");
@@ -489,10 +495,12 @@
         let applicationForm = document.getElementById("applicationForm");
         let applicationsContainer = document.getElementById("applicationsContainer");
         let noApplications = document.getElementById("noApplications");
+        let applicationCount = document.getElementById("applicationCount");
+
 
         let handleSubmit = async (event) => {
-            event.preventDefault();
 
+            event.preventDefault();
 
             let application = {
                 user: currentUser.id,
@@ -505,25 +513,61 @@
                 notes: notes.value
             };
 
-            let response = await fetch("http://localhost:3000/applications", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(application)
-            });
+            let url;
+            let method;
 
-            let result = await response.json();
+            if (editingApplicationId === null) {
+                url = "http://localhost:3000/applications";
+                method = "POST";
+            } else {
+                url = `http://localhost:3000/applications/${editingApplicationId}`;
+                method = "PUT";
+            }
 
-            console.log(result);
+            try {
 
-            fetchApplications();
+                let response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(application)
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to save application");
+                }
+
+                let result = await response.json();
+
+                console.log(result);
+
+                editingApplicationId = null;
+
+                applicationForm.reset();
+
+                let modalElement = document.getElementById("addApplicationModal");
+                let modal = bootstrap.Modal.getInstance(modalElement);
+
+                if (modal) {
+                    modal.hide();
+                }
+
+                fetchApplications();
+
+            } catch (error) {
+
+                console.error(error);
+                alert("Unable to save application.");
+
+            }
         };
 
         let displayApplications = (applications) => {
 
             applicationsContainer.innerHTML = "";
 
+            applicationCount.textContent = applications.length;
             if (applications.length > 0) {
                 noApplications.style.display = "none";
             } else {
@@ -531,7 +575,6 @@
             }
 
             applications.forEach((application) => {
-
 
                 let statusClass = "status-default";
 
@@ -546,97 +589,171 @@
                 }
 
                 let card = `
-            <div class="col-12 col-md-6 col-lg-4">
+                <div class="col-12 col-md-6 col-lg-4">
 
-                <div class="card job-card shadow-sm h-100 p-4">
+                    <div class="card job-card shadow-sm h-100 p-4">
 
-                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
 
-                        <div>
-                            <h5 class="fw-bold mb-1">
-                                ${application.company}
-                            </h5>
+                            <div>
 
-                            <p class="text-secondary mb-0">
-                                ${application.position}
-                            </p>
+                                <h5 class="fw-bold mb-1">
+                                    ${application.company}
+                                </h5>
+
+                                <p class="text-secondary mb-0">
+                                    ${application.position}
+                                </p>
+
+                            </div>
+
+                            <span class="status-badge ${statusClass}">
+                                ${application.status}
+                            </span>
+
                         </div>
 
-                        <span class="status-badge border ${statusClass}">
-                            ${application.status}
-                        </span>
+                        <div class="mb-3">
 
-                    </div>
+                            <p class="mb-2">
+                                <strong>Location:</strong>
+                                ${application.location}
+                            </p>
 
-                    <div class="mb-3">
+                            <p class="mb-2">
+                                <strong>Date:</strong>
+                                ${application.date}
+                            </p>
 
-                        <p class="mb-2">
-                            <strong>Location:</strong>
-                            ${application.location}
+                        </div>
+
+                        <p class="text-secondary mb-3">
+                            ${application.notes || "No notes added"}
                         </p>
 
-                        <p class="mb-2">
-                            <strong>Date:</strong>
-                            ${application.date}
-                        </p>
+                        <div class="mt-auto">
 
-                    </div>
+                            <div class="d-flex gap-2">
 
-                    <p class="text-secondary mb-3">
-                        ${application.notes || "No notes added"}
-                    </p>
+                                <a
+                                    href="${application.jobLink}"
+                                    target="_blank"
+                                    class="btn btn-dark btn-sm"
+                                >
+                                    View Job
+                                </a>
 
-                    <div class="mt-auto">
+                                <button
+                                    class="btn btn-outline-dark btn-sm"
+                                    onclick="editApplication('${application.id}')"
+                                >
+                                    Edit
+                                </button>
 
-                        <div class="d-flex gap-2">
+                                <button
+                                    onclick="deleteApplication('${application.id}')"
+                                    class="btn btn-outline-dark btn-sm"
+                                >
+                                    Delete
+                                </button>
 
-                            <a href="${application.jobLink}" 
-                               target="_blank"
-                               class="btn btn-dark btn-sm">
-                                View Job
-                            </a>
-
-                            <button class="btn btn-outline-dark btn-sm">
-                                Edit
-                            </button>
-
-                            <button class="btn btn-outline-dark btn-sm">
-                                Delete
-                            </button>
+                            </div>
 
                         </div>
 
                     </div>
 
                 </div>
-
-            </div>
-        `;
+            `;
 
                 applicationsContainer.innerHTML += card;
-
             });
+        };
 
+        let deleteApplication = async (id) => {
+
+            try {
+
+                let response = await fetch(
+                    `http://localhost:3000/applications/${id}`,
+                    {
+                        method: "DELETE"
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error("Failed to delete application");
+                }
+
+                fetchApplications();
+
+            } catch (error) {
+
+                console.error(error);
+                alert("Unable to delete application.");
+
+            }
         };
 
         let fetchApplications = async () => {
 
-            let response = await fetch("http://localhost:3000/applications");
+            try {
 
-            let applications = await response.json();
+                let response = await fetch(
+                    "http://localhost:3000/applications"
+                );
 
-            let myApplications = applications.filter((application) => {
-                return application.user === currentUser.id;
-            });
+                if (!response.ok) {
+                    throw new Error("Failed to fetch applications");
+                }
 
-            console.log(myApplications);
+                let applications = await response.json();
 
-            displayApplications(myApplications);
+                let myApplications = applications.filter((application) => {
+                    return application.user === currentUser.id;
+                });
+
+                console.log(myApplications);
+
+                displayApplications(myApplications);
+
+            } catch (error) {
+
+                console.error(error);
+
+            }
+        };
+
+        let editApplication = async (id) => {
+
+            let response = await fetch(`http://localhost:3000/applications/${id}`);
+
+            let application = await response.json();
+
+            editingApplicationId = id;
+
+            company.value = application.company;
+            position.value = application.position;
+            jobLocation.value = application.location;
+            status.value = application.status;
+            date.value = application.date;
+            jobLink.value = application.jobLink;
+            notes.value = application.notes;
+
+            let modalElement = document.getElementById("addApplicationModal");
+            let modal = bootstrap.Modal.getInstance(modalElement);
+
+            if (!modal) {
+                modal = new bootstrap.Modal(modalElement);
+            }
+
+            modal.show();
         };
 
         applicationForm.addEventListener("submit", handleSubmit);
 
         fetchApplications();
+
     </script>
 </body>
 
