@@ -476,6 +476,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        let editingApplicationId = null;
+
         let currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
         let isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
@@ -491,11 +493,14 @@
         let date = document.getElementById("date");
         let jobLink = document.getElementById("jobLink");
         let notes = document.getElementById("notes");
+
         let applicationForm = document.getElementById("applicationForm");
         let applicationsContainer = document.getElementById("applicationsContainer");
         let noApplications = document.getElementById("noApplications");
+        let applicationCount = document.getElementById("applicationCount");
 
         let handleSubmit = async (event) => {
+
             event.preventDefault();
 
             let application = {
@@ -509,9 +514,21 @@
                 notes: notes.value
             };
 
+            let url;
+            let method;
+
+            if (editingApplicationId === null) {
+                url = "http://localhost:3000/applications";
+                method = "POST";
+            } else {
+                url = `http://localhost:3000/applications/${editingApplicationId}`;
+                method = "PUT";
+            }
+
             try {
-                let response = await fetch("http://localhost:3000/applications", {
-                    method: "POST",
+
+                let response = await fetch(url, {
+                    method: method,
                     headers: {
                         "Content-Type": "application/json"
                     },
@@ -524,11 +541,14 @@
 
                 let result = await response.json();
 
-                console.log("Application saved:", result);
+                console.log(result);
+
+                editingApplicationId = null;
 
                 applicationForm.reset();
 
                 let modalElement = document.getElementById("addApplicationModal");
+
                 let modal = bootstrap.Modal.getInstance(modalElement);
 
                 if (modal) {
@@ -538,14 +558,18 @@
                 fetchApplications();
 
             } catch (error) {
+
                 console.error(error);
                 alert("Unable to save application. Please try again.");
+
             }
         };
 
         let displayApplications = (applications) => {
 
             applicationsContainer.innerHTML = "";
+
+            applicationCount.textContent = applications.length;
 
             if (applications.length > 0) {
                 noApplications.style.display = "none";
@@ -617,22 +641,19 @@
                                 <a
                                     href="${application.jobLink}"
                                     target="_blank"
-                                    class="btn btn-dark btn-sm"
-                                >
+                                    class="btn btn-dark btn-sm">
                                     View Job
                                 </a>
 
                                 <button
                                     class="btn btn-outline-dark btn-sm"
-                                    onclick="editApplication('${application.id}')"
-                                >
+                                    onclick="editApplication('${application.id}')">
                                     Edit
                                 </button>
 
                                 <button
                                     onclick="deleteApplication('${application.id}')"
-                                    class="btn btn-outline-dark btn-sm"
-                                >
+                                    class="btn btn-outline-dark btn-sm">
                                     Delete
                                 </button>
 
@@ -646,6 +667,7 @@
             `;
 
                 applicationsContainer.innerHTML += card;
+
             });
         };
 
@@ -703,14 +725,53 @@
             }
         };
 
-        let editApplication = (id) => {
-            console.log("Edit application:", id);
+        let editApplication = async (id) => {
+
+            try {
+
+                let response = await fetch(
+                    `http://localhost:3000/applications/${id}`
+                );
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch application");
+                }
+
+                let application = await response.json();
+
+                editingApplicationId = id;
+
+                company.value = application.company;
+                position.value = application.position;
+                jobLocation.value = application.location;
+                status.value = application.status;
+                date.value = application.date;
+                jobLink.value = application.jobLink;
+                notes.value = application.notes;
+
+                let modalElement =
+                    document.getElementById("addApplicationModal");
+
+                let modal =
+                    bootstrap.Modal.getInstance(modalElement);
+
+                if (!modal) {
+                    modal = new bootstrap.Modal(modalElement);
+                }
+
+                modal.show();
+
+            } catch (error) {
+
+                console.error(error);
+                alert("Unable to load application.");
+
+            }
         };
 
         applicationForm.addEventListener("submit", handleSubmit);
 
         fetchApplications();
-
     </script>
 </body>
 
