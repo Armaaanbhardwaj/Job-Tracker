@@ -47,7 +47,7 @@
         <nav class="navbar navbar-expand-lg bg-black navbar-dark">
             <div class="container">
 
-                <a class="navbar-brand fw-bold" href="index.html">
+                <a class="navbar-brand fw-bold" href="#" onclick="event.preventDefault(); goHome()">
                     JobVault
                 </a>
 
@@ -62,7 +62,7 @@
                     <ul class="navbar-nav ms-auto">
 
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="index.html">
+                            <a class="nav-link text-white" href="#" onclick="event.preventDefault(); goHome()">
                                 Home
                             </a>
                         </li>
@@ -200,11 +200,24 @@
 
 
     <script>
-
         let name = document.getElementById("name");
         let email = document.getElementById("email");
         let password = document.getElementById("password");
         let confirmPassword = document.getElementById("confirmPassword");
+        let currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+        let isLoggedIn = sessionStorage.getItem("isLoggedIn");
+
+        let goHome = () => {
+
+            if (isLoggedIn === "true" && currentUser) {
+                window.location.href = "home.html";
+            } else {
+                alert("Oops! You need to login first.");
+            }
+
+        };
+
+
 
         let handleSubmit = async (event) => {
 
@@ -297,11 +310,12 @@
 
             console.log(result);
 
-            alert("Account created successfully");
+            sessionStorage.setItem("currentUser", JSON.stringify(result));
+            sessionStorage.setItem("isLoggedIn", "true");
+            sessionStorage.setItem("showWelcome", "true");
 
-            window.location.href = "login.html";
+            window.location.href = "home.html";
         };
-
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
