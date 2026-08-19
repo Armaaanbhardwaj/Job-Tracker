@@ -14,14 +14,39 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            padding-top: 72px;
         }
 
         main {
             flex: 1;
         }
 
+        .navbar {
+            min-height: 72px;
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1030;
+            background: #000 !important;
+        }
+
         .navbar-brand {
+            font-size: 22px;
             letter-spacing: 1px;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            margin: 0 7px;
+        }
+
+        .nav-link:hover {
+            opacity: 0.7;
+        }
+
+        .navbar .btn {
+            border-radius: 8px;
         }
 
         .page-header {
@@ -45,12 +70,17 @@
         .form-control,
         .form-select {
             border-radius: 8px;
+            padding: 10px 12px;
         }
 
         .form-control:focus,
         .form-select:focus {
             border-color: #000;
             box-shadow: 0 0 0 0.15rem rgba(0, 0, 0, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
         }
 
         .btn-dark,
@@ -61,40 +91,19 @@
         .job-card {
             border: none;
             border-radius: 15px;
+            transition: transform 0.2s;
         }
 
-        .status-badge {
-            border-radius: 20px;
-            padding: 6px 12px;
-            font-size: 12px;
-            font-weight: 500;
+        .job-card:hover {
+            transform: translateY(-3px);
         }
-
-        .search-box {
-            max-width: 350px;
-        }
-
-        footer {
-            margin-top: 30px;
-        }
-
-        @media (max-width: 768px) {
-
-            .page-header h1 {
-                font-size: 30px;
-            }
-
-            .search-box {
-                max-width: 100%;
-            }
-        }
-
 
         .status-badge {
             padding: 6px 10px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
+            white-space: nowrap;
         }
 
         .status-applied {
@@ -121,18 +130,119 @@
             background-color: #e9ecef;
             color: #495057;
         }
+
+        .search-box {
+            max-width: 350px;
+        }
+
+        .modal {
+            z-index: 1055 !important;
+        }
+
+        .modal-backdrop {
+            z-index: 1050 !important;
+        }
+
+        .modal-dialog {
+            max-width: 520px;
+            margin: 1.75rem auto;
+        }
+
+        .modal-content {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #eeeeee;
+        }
+
+        .modal-title {
+            font-size: 20px;
+        }
+
+        footer {
+            background: #000;
+            color: white;
+            padding: 45px 0 25px;
+            margin-top: 0;
+        }
+
+        .footer-brand {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .footer-text {
+            color: #777;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        .footer-link {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 13px;
+            margin-left: 20px;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 12px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 72px;
+            }
+
+            .page-header {
+                padding-top: 30px;
+            }
+
+            .page-header h1 {
+                font-size: 30px;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+
+            .footer-link {
+                margin-left: 0;
+                margin-right: 15px;
+            }
+
+            .modal-dialog {
+                margin: 12px;
+            }
+        }
     </style>
 </head>
 
 <body>
 
     <header>
-
-        <nav class="navbar navbar-expand-lg bg-black navbar-dark">
-
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
 
-                <a class="navbar-brand fw-bold" href="home.html">
+                <a class="navbar-brand fw-bold" href="index.html">
                     JobVault
                 </a>
 
@@ -142,10 +252,10 @@
 
                 <div class="collapse navbar-collapse" id="navbarContent">
 
-                    <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <ul class="navbar-nav mx-auto">
 
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="home.html">
+                            <a class="nav-link text-white" href="index.html">
                                 Home
                             </a>
                         </li>
@@ -157,26 +267,27 @@
                         </li>
 
                         <li class="nav-item">
-                            <button class="btn btn-outline-light btn-sm ms-lg-3" onclick="handleLogout()">
-                                Logout
-                            </button>
+                            <a class="nav-link text-white" href="home.html">
+                                Dashboard
+                            </a>
                         </li>
 
                     </ul>
 
+                    <div class="d-flex">
+                        <button class="btn btn-outline-light btn-sm px-3" onclick="handleLogout()">
+                            Logout
+                        </button>
+                    </div>
+
                 </div>
-
             </div>
-
         </nav>
-
     </header>
-
 
     <main>
 
         <section class="page-header">
-
             <div class="container">
 
                 <div class="row align-items-center">
@@ -195,7 +306,7 @@
 
                     <div class="col-lg-5 text-lg-end mt-4 mt-lg-0">
 
-                        <button class="btn btn-dark px-4 py-2" data-bs-toggle="modal"
+                        <button type="button" class="btn btn-dark px-4 py-2" data-bs-toggle="modal"
                             data-bs-target="#addApplicationModal">
                             + Add Application
                         </button>
@@ -205,12 +316,9 @@
                 </div>
 
             </div>
-
         </section>
 
-
         <section class="pb-4">
-
             <div class="container">
 
                 <div class="card application-card shadow-sm p-4">
@@ -218,10 +326,8 @@
                     <div class="row g-3 align-items-center">
 
                         <div class="col-lg-5">
-
                             <input type="text" id="searchInput" class="form-control search-box"
                                 placeholder="Search company or position">
-
                         </div>
 
                         <div class="col-lg-3">
@@ -266,17 +372,12 @@
                 </div>
 
             </div>
-
         </section>
 
-
         <section class="pb-5">
-
             <div class="container">
 
-                <div id="applicationsContainer" class="row g-4">
-
-                </div>
+                <div id="applicationsContainer" class="row g-4"></div>
 
                 <div id="noApplications" class="text-center py-5">
 
@@ -288,18 +389,17 @@
                         Start tracking your job search by adding your first application.
                     </p>
 
-                    <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addApplicationModal">
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                        data-bs-target="#addApplicationModal">
                         Add Application
                     </button>
 
                 </div>
 
             </div>
-
         </section>
 
     </main>
-
 
     <div class="modal fade" id="addApplicationModal" tabindex="-1" aria-labelledby="addApplicationModalLabel"
         aria-hidden="true">
@@ -318,14 +418,13 @@
 
                 </div>
 
-
                 <div class="modal-body">
 
                     <form id="applicationForm">
 
                         <div class="mb-3">
 
-                            <label for="company" class="form-label">
+                            <label for="company" class="form-label fw-semibold">
                                 Company
                             </label>
 
@@ -333,10 +432,9 @@
 
                         </div>
 
-
                         <div class="mb-3">
 
-                            <label for="position" class="form-label">
+                            <label for="position" class="form-label fw-semibold">
                                 Position
                             </label>
 
@@ -345,10 +443,9 @@
 
                         </div>
 
-
                         <div class="mb-3">
 
-                            <label for="location" class="form-label">
+                            <label for="location" class="form-label fw-semibold">
                                 Location
                             </label>
 
@@ -357,10 +454,9 @@
 
                         </div>
 
-
                         <div class="mb-3">
 
-                            <label for="status" class="form-label">
+                            <label for="status" class="form-label fw-semibold">
                                 Status
                             </label>
 
@@ -390,10 +486,9 @@
 
                         </div>
 
-
                         <div class="mb-3">
 
-                            <label for="date" class="form-label">
+                            <label for="date" class="form-label fw-semibold">
                                 Application Date
                             </label>
 
@@ -401,10 +496,9 @@
 
                         </div>
 
-
                         <div class="mb-3">
 
-                            <label for="jobLink" class="form-label">
+                            <label for="jobLink" class="form-label fw-semibold">
                                 Job Link
                             </label>
 
@@ -412,10 +506,9 @@
 
                         </div>
 
+                        <div class="mb-2">
 
-                        <div class="mb-3">
-
-                            <label for="notes" class="form-label">
+                            <label for="notes" class="form-label fw-semibold">
                                 Notes
                             </label>
 
@@ -427,7 +520,6 @@
                     </form>
 
                 </div>
-
 
                 <div class="modal-footer">
 
@@ -447,31 +539,53 @@
 
     </div>
 
+    <footer>
 
-    <footer class="bg-black text-white">
+        <div class="container">
 
-        <div class="container py-3">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
 
-            <div class="text-center">
+                <div>
 
-                <h6 class="fw-bold mb-1">
-                    JobVault
-                </h6>
+                    <div class="footer-brand">
+                        JobVault
+                    </div>
 
-                <p class="small text-secondary mb-2">
-                    Track your applications. Manage your career.
-                </p>
+                    <div class="footer-text">
+                        Track your applications. Manage your career.
+                    </div>
 
-                <p class="small mb-0">
-                    © 2026 JobVault
-                </p>
+                </div>
 
+                <div class="mt-3 mt-md-0">
+
+                    <a href="index.html#features" class="footer-link">
+                        Features
+                    </a>
+
+                    <a href="index.html#how" class="footer-link">
+                        How It Works
+                    </a>
+
+                    <a href="index.html#tracker" class="footer-link">
+                        Job Tracker
+                    </a>
+
+                    <a href="applications.html" class="footer-link">
+                        Applications
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="copyright">
+                © 2026 JobVault. All rights reserved.
             </div>
 
         </div>
 
     </footer>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -493,14 +607,15 @@
         let date = document.getElementById("date");
         let jobLink = document.getElementById("jobLink");
         let notes = document.getElementById("notes");
-
         let applicationForm = document.getElementById("applicationForm");
         let applicationsContainer = document.getElementById("applicationsContainer");
         let noApplications = document.getElementById("noApplications");
         let applicationCount = document.getElementById("applicationCount");
+        let searchInput = document.getElementById("searchInput");
+        let statusFilter = document.getElementById("statusFilter");
+        let allMyApplications = [];
 
         let handleSubmit = async (event) => {
-
             event.preventDefault();
 
             let application = {
@@ -514,6 +629,10 @@
                 notes: notes.value
             };
 
+            if (editingApplicationId === null) {
+                application.createdAt = new Date().toISOString();
+            }
+
             let url;
             let method;
 
@@ -526,7 +645,6 @@
             }
 
             try {
-
                 let response = await fetch(url, {
                     method: method,
                     headers: {
@@ -539,16 +657,12 @@
                     throw new Error("Failed to save application");
                 }
 
-                let result = await response.json();
-
-                console.log(result);
+                await response.json();
 
                 editingApplicationId = null;
-
                 applicationForm.reset();
 
                 let modalElement = document.getElementById("addApplicationModal");
-
                 let modal = bootstrap.Modal.getInstance(modalElement);
 
                 if (modal) {
@@ -558,17 +672,33 @@
                 fetchApplications();
 
             } catch (error) {
-
                 console.error(error);
                 alert("Unable to save application. Please try again.");
-
             }
         };
 
+        let getStatusClass = (status) => {
+            if (status === "Applied") {
+                return "status-applied";
+            }
+
+            if (status === "Interview") {
+                return "status-interview";
+            }
+
+            if (status === "Offer") {
+                return "status-offer";
+            }
+
+            if (status === "Rejected") {
+                return "status-rejected";
+            }
+
+            return "status-default";
+        };
+
         let displayApplications = (applications) => {
-
             applicationsContainer.innerHTML = "";
-
             applicationCount.textContent = applications.length;
 
             if (applications.length > 0) {
@@ -579,102 +709,127 @@
 
             applications.forEach((application) => {
 
-                let statusClass = "status-default";
-
-                if (application.status === "Applied") {
-                    statusClass = "status-applied";
-                } else if (application.status === "Interview") {
-                    statusClass = "status-interview";
-                } else if (application.status === "Offer") {
-                    statusClass = "status-offer";
-                } else if (application.status === "Rejected") {
-                    statusClass = "status-rejected";
-                }
+                let statusClass = getStatusClass(application.status);
 
                 let card = `
-                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card job-card shadow-sm h-100 p-4">
 
-                    <div class="card job-card shadow-sm h-100 p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
 
-                        <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h5 class="fw-bold mb-1">
+                                        ${application.company}
+                                    </h5>
 
-                            <div>
+                                    <p class="text-secondary mb-0">
+                                        ${application.position}
+                                    </p>
+                                </div>
 
-                                <h5 class="fw-bold mb-1">
-                                    ${application.company}
-                                </h5>
+                                <span class="status-badge ${statusClass}">
+                                    ${application.status}
+                                </span>
 
-                                <p class="text-secondary mb-0">
-                                    ${application.position}
+                            </div>
+
+                            <div class="mb-3">
+
+                                <p class="mb-2">
+                                    <strong>Location:</strong>
+                                    ${application.location}
+                                </p>
+
+                                <p class="mb-2">
+                                    <strong>Date:</strong>
+                                    ${application.date}
                                 </p>
 
                             </div>
 
-                            <span class="status-badge ${statusClass}">
-                                ${application.status}
-                            </span>
-
-                        </div>
-
-                        <div class="mb-3">
-
-                            <p class="mb-2">
-                                <strong>Location:</strong>
-                                ${application.location}
+                            <p class="text-secondary mb-3">
+                                ${application.notes || "No notes added"}
                             </p>
 
-                            <p class="mb-2">
-                                <strong>Date:</strong>
-                                ${application.date}
-                            </p>
+                            <div class="mt-auto">
 
-                        </div>
+                                <div class="d-flex gap-2 flex-wrap">
 
-                        <p class="text-secondary mb-3">
-                            ${application.notes || "No notes added"}
-                        </p>
+                                    ${application.jobLink
+                        ? `<a href="${application.jobLink}" target="_blank" class="btn btn-dark btn-sm">
+                                            View Job
+                                        </a>`
+                        : ""
+                    }
 
-                        <div class="mt-auto">
+                                    <button class="btn btn-outline-dark btn-sm"
+                                        onclick="editApplication('${application.id}')">
+                                        Edit
+                                    </button>
 
-                            <div class="d-flex gap-2">
+                                    <button class="btn btn-outline-dark btn-sm"
+                                        onclick="deleteApplication('${application.id}')">
+                                        Delete
+                                    </button>
 
-                                <a
-                                    href="${application.jobLink}"
-                                    target="_blank"
-                                    class="btn btn-dark btn-sm">
-                                    View Job
-                                </a>
-
-                                <button
-                                    class="btn btn-outline-dark btn-sm"
-                                    onclick="editApplication('${application.id}')">
-                                    Edit
-                                </button>
-
-                                <button
-                                    onclick="deleteApplication('${application.id}')"
-                                    class="btn btn-outline-dark btn-sm">
-                                    Delete
-                                </button>
+                                </div>
 
                             </div>
 
                         </div>
-
                     </div>
-
-                </div>
-            `;
+                `;
 
                 applicationsContainer.innerHTML += card;
-
             });
         };
 
-        let deleteApplication = async (id) => {
+        let filterApplications = () => {
+            let searchText = searchInput.value.toLowerCase().trim();
+            let selectedStatus = statusFilter.value;
 
+            let filtered = allMyApplications.filter((application) => {
+
+                let companyName = application.company.toLowerCase();
+                let positionName = application.position.toLowerCase();
+
+                let matchesSearch =
+                    companyName.includes(searchText) ||
+                    positionName.includes(searchText);
+
+                let matchesStatus =
+                    selectedStatus === "all" ||
+                    application.status === selectedStatus;
+
+                return matchesSearch && matchesStatus;
+            });
+
+            displayApplications(filtered);
+        };
+
+        let fetchApplications = async () => {
             try {
+                let response = await fetch("http://localhost:3000/applications");
 
+                if (!response.ok) {
+                    throw new Error("Failed to fetch applications");
+                }
+
+                let applications = await response.json();
+
+                allMyApplications = applications.filter((application) => {
+                    return application.user === currentUser.id;
+                });
+
+                filterApplications();
+
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        let deleteApplication = async (id) => {
+            try {
                 let response = await fetch(
                     `http://localhost:3000/applications/${id}`,
                     {
@@ -689,46 +844,13 @@
                 fetchApplications();
 
             } catch (error) {
-
                 console.error(error);
                 alert("Unable to delete application.");
-
-            }
-        };
-
-        let fetchApplications = async () => {
-
-            try {
-
-                let response = await fetch(
-                    "http://localhost:3000/applications"
-                );
-
-                if (!response.ok) {
-                    throw new Error("Failed to fetch applications");
-                }
-
-                let applications = await response.json();
-
-                let myApplications = applications.filter((application) => {
-                    return application.user === currentUser.id;
-                });
-
-                console.log(myApplications);
-
-                displayApplications(myApplications);
-
-            } catch (error) {
-
-                console.error(error);
-
             }
         };
 
         let editApplication = async (id) => {
-
             try {
-
                 let response = await fetch(
                     `http://localhost:3000/applications/${id}`
                 );
@@ -746,14 +868,14 @@
                 jobLocation.value = application.location;
                 status.value = application.status;
                 date.value = application.date;
-                jobLink.value = application.jobLink;
-                notes.value = application.notes;
+                jobLink.value = application.jobLink || "";
+                notes.value = application.notes || "";
 
-                let modalElement =
-                    document.getElementById("addApplicationModal");
+                document.getElementById("addApplicationModalLabel").textContent =
+                    "Edit Job Application";
 
-                let modal =
-                    bootstrap.Modal.getInstance(modalElement);
+                let modalElement = document.getElementById("addApplicationModal");
+                let modal = bootstrap.Modal.getInstance(modalElement);
 
                 if (!modal) {
                     modal = new bootstrap.Modal(modalElement);
@@ -762,17 +884,37 @@
                 modal.show();
 
             } catch (error) {
-
                 console.error(error);
                 alert("Unable to load application.");
-
             }
         };
 
+        document.getElementById("addApplicationModal").addEventListener(
+            "hidden.bs.modal",
+            () => {
+                editingApplicationId = null;
+                applicationForm.reset();
+
+                document.getElementById("addApplicationModalLabel").textContent =
+                    "Add Job Application";
+            }
+        );
+
+        searchInput.addEventListener("input", filterApplications);
+        statusFilter.addEventListener("change", filterApplications);
         applicationForm.addEventListener("submit", handleSubmit);
+
+        let handleLogout = () => {
+            sessionStorage.removeItem("currentUser");
+            sessionStorage.removeItem("isLoggedIn");
+            sessionStorage.removeItem("showWelcome");
+
+            window.location.href = "index.html";
+        };
 
         fetchApplications();
     </script>
+
 </body>
 
 </html>

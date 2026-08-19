@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JobVault - Home</title>
+    <title>JobVault - Dashboard</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -16,14 +16,39 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            padding-top: 72px;
         }
 
         main {
             flex: 1;
         }
 
+        .navbar {
+            min-height: 72px;
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1030;
+            background: #000 !important;
+        }
+
         .navbar-brand {
+            font-size: 22px;
             letter-spacing: 1px;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            margin: 0 7px;
+        }
+
+        .nav-link:hover {
+            opacity: 0.7;
+        }
+
+        .navbar .btn {
+            border-radius: 8px;
         }
 
         .hero {
@@ -69,8 +94,154 @@
             border-radius: 8px;
         }
 
+        .status-summary-item {
+            padding: 8px 0;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .status-dot-applied {
+            background: #ffc107;
+        }
+
+        .status-dot-interview {
+            background: #0d6efd;
+        }
+
+        .status-dot-offer {
+            background: #198754;
+        }
+
+        .status-dot-rejected {
+            background: #dc3545;
+        }
+
+        .status-progress {
+            height: 7px;
+            border-radius: 10px;
+            background: #eeeeee;
+        }
+
+        .status-progress .progress-bar {
+            border-radius: 10px;
+        }
+
+        .status-insight {
+            background: #f8f8f8;
+            border: 1px solid #eeeeee;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .recent-application {
+            padding: 18px 0;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .recent-application:last-child {
+            border-bottom: none;
+        }
+
+        .recent-company {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .recent-position {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .recent-date {
+            color: #777;
+            font-size: 13px;
+        }
+
+        .status-badge {
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .status-applied {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-interview {
+            background-color: #cfe2ff;
+            color: #084298;
+        }
+
+        .status-offer {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .status-rejected {
+            background-color: #f8d7da;
+            color: #842029;
+        }
+
         footer {
+            background: #000;
+            color: white;
+            padding: 45px 0 25px;
+            margin-top: 0;
+        }
+
+        .footer-brand {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .footer-text {
+            color: #777;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        .footer-link {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 13px;
+            margin-left: 20px;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 12px;
             margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 72px;
+            }
+
+            .hero {
+                padding-top: 35px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .footer-link {
+                margin-left: 0;
+                margin-right: 15px;
+            }
         }
     </style>
 </head>
@@ -78,77 +249,60 @@
 <body>
 
     <header>
-
-        <nav class="navbar navbar-expand-lg bg-black navbar-dark">
-
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
 
-                <a class="navbar-brand fw-bold" href="home.html">
+                <a class="navbar-brand fw-bold" href="index.html">
                     JobVault
                 </a>
 
-                <button class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarContent">
-
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
                     <span class="navbar-toggler-icon"></span>
-
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarContent">
 
-                    <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <ul class="navbar-nav mx-auto">
 
                         <li class="nav-item">
-
-                            <a class="nav-link text-white" href="home.html">
+                            <a class="nav-link text-white" href="index.html">
                                 Home
                             </a>
-
                         </li>
 
                         <li class="nav-item">
-
                             <a class="nav-link text-white" href="applications.html">
                                 Applications
                             </a>
-
                         </li>
 
                         <li class="nav-item">
-
-                            <button
-                                class="btn btn-outline-light btn-sm ms-lg-3"
-                                onclick="handleLogout()">
-
-                                Logout
-
-                            </button>
-
+                            <a class="nav-link text-white active" href="home.html">
+                                Dashboard
+                            </a>
                         </li>
 
                     </ul>
 
+                    <div class="d-flex">
+                        <button class="btn btn-outline-light btn-sm px-3" onclick="handleLogout()">
+                            Logout
+                        </button>
+                    </div>
+
                 </div>
-
             </div>
-
         </nav>
-
     </header>
-
 
     <main>
 
         <section class="hero">
-
             <div class="container">
 
                 <div class="row align-items-center">
 
                     <div class="col-lg-8">
-
                         <h1>
                             Greetings, <span id="userName"></span>
                         </h1>
@@ -156,150 +310,190 @@
                         <p class="fs-5 mt-3">
                             Keep track of your job applications and stay organized throughout your job search.
                         </p>
-
                     </div>
 
                     <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
-
-                        <a href="applications.html"
-                            class="btn btn-dark px-4 py-2">
-
+                        <a href="applications.html" class="btn btn-dark px-4 py-2">
                             Add Application
-
                         </a>
-
                     </div>
 
                 </div>
 
             </div>
-
         </section>
 
-
         <section class="pb-5">
-
             <div class="container">
 
                 <div class="row g-4">
 
                     <div class="col-12 col-sm-6 col-lg-3">
-
                         <div class="card stat-card shadow-sm p-4">
-
-                            <div class="stat-number" id="totalApplications">
-                                0
-                            </div>
-
-                            <div class="stat-label">
-                                Total Applications
-                            </div>
-
+                            <div class="stat-number" id="totalApplications">0</div>
+                            <div class="stat-label">Total Applications</div>
                         </div>
-
                     </div>
 
-
                     <div class="col-12 col-sm-6 col-lg-3">
-
                         <div class="card stat-card shadow-sm p-4">
-
-                            <div class="stat-number" id="appliedApplications">
-                                0
-                            </div>
-
-                            <div class="stat-label">
-                                Applied
-                            </div>
-
+                            <div class="stat-number" id="appliedApplications">0</div>
+                            <div class="stat-label">Applied</div>
                         </div>
-
                     </div>
 
-
                     <div class="col-12 col-sm-6 col-lg-3">
-
                         <div class="card stat-card shadow-sm p-4">
-
-                            <div class="stat-number" id="interviewApplications">
-                                0
-                            </div>
-
-                            <div class="stat-label">
-                                Interviews
-                            </div>
-
+                            <div class="stat-number" id="interviewApplications">0</div>
+                            <div class="stat-label">Interviews</div>
                         </div>
-
                     </div>
 
-
                     <div class="col-12 col-sm-6 col-lg-3">
-
                         <div class="card stat-card shadow-sm p-4">
-
-                            <div class="stat-number" id="offerApplications">
-                                0
-                            </div>
-
-                            <div class="stat-label">
-                                Offers
-                            </div>
-
+                            <div class="stat-number" id="offerApplications">0</div>
+                            <div class="stat-label">Offers</div>
                         </div>
-
                     </div>
 
                 </div>
 
             </div>
-
         </section>
 
-
         <section class="pb-5">
-
             <div class="container">
 
                 <div class="card application-card shadow-sm p-4">
 
-                    <h4 class="fw-bold mb-1">
-                        Application Status Overview
-                    </h4>
-
-                    <p class="text-secondary mb-4">
-                        A quick breakdown of your applications by status.
-                    </p>
-
                     <div class="row align-items-center">
 
-                        <div class="col-md-6 mx-auto" style="max-width: 320px;">
+                        <div class="col-lg-6">
 
-                            <canvas id="statusPieChart"></canvas>
+                            <h4 class="fw-bold mb-1">
+                                Application Status
+                            </h4>
+
+                            <p class="text-secondary mb-4">
+                                See how your job applications are progressing.
+                            </p>
+
+                            <div class="mx-auto" style="max-width: 320px;">
+                                <canvas id="statusPieChart"></canvas>
+                            </div>
+
+                            <div id="statusPieEmpty" class="text-center py-4" style="display: none;">
+                                <p class="text-secondary mb-0">
+                                    No applications yet to show in the chart.
+                                </p>
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="col-lg-6 mt-4 mt-lg-0">
 
-                    <div id="statusPieEmpty"
-                        class="text-center py-4"
-                        style="display: none;">
+                            <h5 class="fw-bold mb-4">
+                                Application Breakdown
+                            </h5>
 
-                        <p class="text-secondary mb-0">
-                            No applications yet to show in the chart.
-                        </p>
+                            <div class="status-summary-item mb-3">
+
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="status-dot status-dot-applied"></span>
+                                        <span class="fw-semibold">Applied</span>
+                                    </div>
+
+                                    <strong id="chartAppliedCount">0</strong>
+
+                                </div>
+
+                                <div class="progress status-progress">
+                                    <div id="chartAppliedProgress" class="progress-bar bg-warning" style="width: 0%;"></div>
+                                </div>
+
+                            </div>
+
+                            <div class="status-summary-item mb-3">
+
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="status-dot status-dot-interview"></span>
+                                        <span class="fw-semibold">Interview</span>
+                                    </div>
+
+                                    <strong id="chartInterviewCount">0</strong>
+
+                                </div>
+
+                                <div class="progress status-progress">
+                                    <div id="chartInterviewProgress" class="progress-bar bg-primary" style="width: 0%;"></div>
+                                </div>
+
+                            </div>
+
+                            <div class="status-summary-item mb-3">
+
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="status-dot status-dot-offer"></span>
+                                        <span class="fw-semibold">Offer</span>
+                                    </div>
+
+                                    <strong id="chartOfferCount">0</strong>
+
+                                </div>
+
+                                <div class="progress status-progress">
+                                    <div id="chartOfferProgress" class="progress-bar bg-success" style="width: 0%;"></div>
+                                </div>
+
+                            </div>
+
+                            <div class="status-summary-item mb-4">
+
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="status-dot status-dot-rejected"></span>
+                                        <span class="fw-semibold">Rejected</span>
+                                    </div>
+
+                                    <strong id="chartRejectedCount">0</strong>
+
+                                </div>
+
+                                <div class="progress status-progress">
+                                    <div id="chartRejectedProgress" class="progress-bar bg-danger" style="width: 0%;"></div>
+                                </div>
+
+                            </div>
+
+                            <div class="status-insight">
+
+                                <div class="fw-semibold mb-1">
+                                    Your job search insight
+                                </div>
+
+                                <p id="statusInsight" class="text-secondary mb-0">
+                                    Keep applying to increase your chances of getting interviews.
+                                </p>
+
+                            </div>
+
+                        </div>
 
                     </div>
 
                 </div>
 
             </div>
-
         </section>
 
-
         <section class="pb-5">
-
             <div class="container">
 
                 <div class="card application-card shadow-sm p-4">
@@ -307,7 +501,6 @@
                     <div class="d-flex justify-content-between align-items-center">
 
                         <div>
-
                             <h4 class="fw-bold mb-1">
                                 Recent Applications
                             </h4>
@@ -315,21 +508,19 @@
                             <p class="text-secondary mb-0">
                                 Your latest job applications will appear here.
                             </p>
-
                         </div>
 
-                        <a href="applications.html"
-                            class="btn btn-dark">
-
+                        <a href="applications.html" class="btn btn-dark">
                             View All
-
                         </a>
 
                     </div>
 
                     <hr>
 
-                    <div class="text-center py-5">
+                    <div id="recentApplicationsContainer"></div>
+
+                    <div id="recentApplicationsEmpty" class="text-center py-5" style="display: none;">
 
                         <h5 class="fw-semibold">
                             No applications yet
@@ -339,11 +530,8 @@
                             Start by adding your first job application.
                         </p>
 
-                        <a href="applications.html"
-                            class="btn btn-outline-dark">
-
+                        <a href="applications.html" class="btn btn-outline-dark">
                             Add Application
-
                         </a>
 
                     </div>
@@ -351,44 +539,59 @@
                 </div>
 
             </div>
-
         </section>
 
     </main>
 
+    <footer>
 
-    <footer class="bg-black text-white">
+        <div class="container">
 
-        <div class="container py-3">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
 
-            <div class="text-center">
+                <div>
+                    <div class="footer-brand">
+                        JobVault
+                    </div>
 
-                <h6 class="fw-bold mb-1">
-                    JobVault
-                </h6>
+                    <div class="footer-text">
+                        Track your applications. Manage your career.
+                    </div>
+                </div>
 
-                <p class="small text-secondary mb-2">
-                    Track your applications. Manage your career.
-                </p>
+                <div class="mt-3 mt-md-0">
 
-                <p class="small mb-0">
-                    © 2026 JobVault
-                </p>
+                    <a href="index.html#features" class="footer-link">
+                        Features
+                    </a>
 
+                    <a href="index.html#how" class="footer-link">
+                        How It Works
+                    </a>
+
+                    <a href="index.html#tracker" class="footer-link">
+                        Job Tracker
+                    </a>
+
+                    <a href="applications.html" class="footer-link">
+                        Applications
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="copyright">
+                © 2026 JobVault. All rights reserved.
             </div>
 
         </div>
 
     </footer>
 
-
     <div class="toast-container position-fixed top-0 end-0 p-3">
 
-        <div id="welcomeToast"
-            class="toast"
-            role="alert"
-            aria-live="assertive"
-            aria-atomic="true">
+        <div id="welcomeToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
 
             <div class="toast-header">
 
@@ -400,48 +603,29 @@
                     Welcome
                 </small>
 
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="toast">
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
 
             </div>
 
             <div class="toast-body">
-
-                Welcome back,
-                <span id="toastUserName"></span>!
-
+                Welcome back, <span id="toastUserName"></span>!
             </div>
 
         </div>
 
     </div>
 
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-
-        let currentUser = JSON.parse(
-            sessionStorage.getItem("currentUser")
-        );
-
-        let isLoggedIn =
-            sessionStorage.getItem("isLoggedIn");
-
-        let showWelcome =
-            sessionStorage.getItem("showWelcome");
-
+        let currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+        let isLoggedIn = sessionStorage.getItem("isLoggedIn");
+        let showWelcome = sessionStorage.getItem("showWelcome");
 
         if (isLoggedIn === "true" && currentUser) {
 
-            document.getElementById("userName").textContent =
-                currentUser.name;
-
-            document.getElementById("toastUserName").textContent =
-                currentUser.name;
+            document.getElementById("userName").textContent = currentUser.name;
+            document.getElementById("toastUserName").textContent = currentUser.name;
 
             if (showWelcome === "true") {
 
@@ -452,205 +636,301 @@
                 toast.show();
 
                 sessionStorage.removeItem("showWelcome");
-
             }
 
         } else {
 
             window.location.href = "login.html";
-
         }
-
 
         let handleLogout = () => {
 
             sessionStorage.removeItem("currentUser");
-
             sessionStorage.removeItem("isLoggedIn");
-
             sessionStorage.removeItem("showWelcome");
 
-            window.location.href = "login.html";
-
+            window.location.href = "index.html";
         };
 
+        let getStatusClass = (status) => {
+
+            if (status === "Applied") {
+                return "status-applied";
+            }
+
+            if (status === "Interview") {
+                return "status-interview";
+            }
+
+            if (status === "Offer") {
+                return "status-offer";
+            }
+
+            if (status === "Rejected") {
+                return "status-rejected";
+            }
+
+            return "";
+        };
+
+        let statusChart = null;
 
         let renderStatusPieChart = (applications) => {
 
             let counts = {
                 Applied: 0,
                 Interview: 0,
+                Offer: 0,
                 Rejected: 0
             };
 
             applications.forEach((application) => {
 
                 if (counts.hasOwnProperty(application.status)) {
-
                     counts[application.status]++;
-
                 }
-
             });
 
             let total =
                 counts.Applied +
                 counts.Interview +
+                counts.Offer +
                 counts.Rejected;
 
-            let pieCanvas =
-                document.getElementById("statusPieChart");
-
-            let emptyState =
-                document.getElementById("statusPieEmpty");
-
+            let pieCanvas = document.getElementById("statusPieChart");
+            let emptyState = document.getElementById("statusPieEmpty");
 
             if (total === 0) {
 
                 pieCanvas.style.display = "none";
+                emptyState.style.display = "block";
+
+                return;
+            }
+
+            pieCanvas.style.display = "block";
+            emptyState.style.display = "none";
+
+            if (statusChart) {
+                statusChart.destroy();
+            }
+
+            statusChart = new Chart(
+                pieCanvas,
+                {
+                    type: "pie",
+                    data: {
+                        labels: [
+                            "Applied",
+                            "Interview",
+                            "Offer",
+                            "Rejected"
+                        ],
+                        datasets: [{
+                            data: [
+                                counts.Applied,
+                                counts.Interview,
+                                counts.Offer,
+                                counts.Rejected
+                            ],
+                            backgroundColor: [
+                                "#ffc107",
+                                "#0d6efd",
+                                "#198754",
+                                "#dc3545"
+                            ],
+                            borderWidth: 2,
+                            borderColor: "#ffffff"
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                position: "bottom",
+                                labels: {
+                                    padding: 18,
+                                    usePointStyle: true
+                                }
+                            }
+                        }
+                    }
+                }
+            );
+
+            document.getElementById("chartAppliedCount").textContent = counts.Applied;
+            document.getElementById("chartInterviewCount").textContent = counts.Interview;
+            document.getElementById("chartOfferCount").textContent = counts.Offer;
+            document.getElementById("chartRejectedCount").textContent = counts.Rejected;
+
+            document.getElementById("chartAppliedProgress").style.width =
+                (counts.Applied / total * 100) + "%";
+
+            document.getElementById("chartInterviewProgress").style.width =
+                (counts.Interview / total * 100) + "%";
+
+            document.getElementById("chartOfferProgress").style.width =
+                (counts.Offer / total * 100) + "%";
+
+            document.getElementById("chartRejectedProgress").style.width =
+                (counts.Rejected / total * 100) + "%";
+
+            let insight = document.getElementById("statusInsight");
+
+            if (counts.Offer > 0) {
+
+                insight.textContent =
+                    "Great! You already have " +
+                    counts.Offer +
+                    " offer" +
+                    (counts.Offer > 1 ? "s" : "") +
+                    ". Keep up the momentum.";
+
+            } else if (counts.Interview > 0) {
+
+                insight.textContent =
+                    "You have " +
+                    counts.Interview +
+                    " application" +
+                    (counts.Interview > 1 ? "s" : "") +
+                    " in the interview stage. Focus on your preparation.";
+
+            } else if (counts.Applied > 0) {
+
+                insight.textContent =
+                    "You have " +
+                    counts.Applied +
+                    " active application" +
+                    (counts.Applied > 1 ? "s" : "") +
+                    ". Keep applying to increase your chances.";
+
+            } else {
+
+                insight.textContent =
+                    "Keep applying and track your progress here.";
+            }
+        };
+
+        let renderRecentApplications = (applications) => {
+
+            let container = document.getElementById("recentApplicationsContainer");
+            let emptyState = document.getElementById("recentApplicationsEmpty");
+
+            container.innerHTML = "";
+
+            if (applications.length === 0) {
 
                 emptyState.style.display = "block";
 
                 return;
-
             }
-
-
-            pieCanvas.style.display = "block";
 
             emptyState.style.display = "none";
 
-
-            new Chart(pieCanvas, {
-
-                type: "pie",
-
-                data: {
-
-                    labels: [
-                        "Applied",
-                        "Interview",
-                        "Rejected"
-                    ],
-
-                    datasets: [{
-
-                        data: [
-                            counts.Applied,
-                            counts.Interview,
-                            counts.Rejected
-                        ],
-
-                        backgroundColor: [
-                            "#ffc107",
-                            "#0d6efd",
-                            "#dc3545"
-                        ]
-
-                    }]
-
-                },
-
-                options: {
-
-                    responsive: true,
-
-                    plugins: {
-
-                        legend: {
-
-                            position: "bottom"
-
-                        }
-
-                    }
-
-                }
-
+            applications.sort((a, b) => {
+                return new Date(b.createdAt) - new Date(a.createdAt);
             });
 
-        };
+            let recent = applications.slice(0, 4);
 
+            recent.forEach((application) => {
+
+                let statusClass = getStatusClass(application.status);
+
+                let formattedDate = new Date(
+                    application.createdAt
+                ).toLocaleDateString(
+                    "en-IN",
+                    {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                    }
+                );
+
+                let item = `
+                    <div class="recent-application">
+                        <div class="row align-items-center g-3">
+
+                            <div class="col-md-5">
+                                <div class="recent-company">
+                                    ${application.company}
+                                </div>
+
+                                <div class="recent-position">
+                                    ${application.position}
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <span class="status-badge ${statusClass}">
+                                    ${application.status}
+                                </span>
+                            </div>
+
+                            <div class="col-md-4 text-md-end">
+                                <div class="recent-date">
+                                    Added on ${formattedDate}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                `;
+
+                container.innerHTML += item;
+            });
+        };
 
         let fetchApplicationStats = async () => {
 
             try {
 
-                let response =
-                    await fetch(
-                        "http://localhost:3000/applications"
-                    );
+                let response = await fetch(
+                    "http://localhost:3000/applications"
+                );
 
-                let applications =
-                    await response.json();
+                if (!response.ok) {
+                    throw new Error("Failed to fetch applications");
+                }
 
+                let applications = await response.json();
 
-                let myApplications =
-                    applications.filter((application) => {
+                let myApplications = applications.filter((application) => {
+                    return application.user === currentUser.id;
+                });
 
-                        return application.user === currentUser.id;
-
-                    });
-
-
-                let totalApplications =
-                    document.getElementById("totalApplications");
-
-                let appliedApplications =
-                    document.getElementById("appliedApplications");
-
-                let interviewApplications =
-                    document.getElementById("interviewApplications");
-
-                let offerApplications =
-                    document.getElementById("offerApplications");
-
-
-                totalApplications.textContent =
+                document.getElementById("totalApplications").textContent =
                     myApplications.length;
 
-
-                appliedApplications.textContent =
+                document.getElementById("appliedApplications").textContent =
                     myApplications.filter((application) => {
-
                         return application.status === "Applied";
-
                     }).length;
 
-
-                interviewApplications.textContent =
+                document.getElementById("interviewApplications").textContent =
                     myApplications.filter((application) => {
-
                         return application.status === "Interview";
-
                     }).length;
 
-
-                offerApplications.textContent =
+                document.getElementById("offerApplications").textContent =
                     myApplications.filter((application) => {
-
                         return application.status === "Offer";
-
                     }).length;
-
 
                 renderStatusPieChart(myApplications);
+                renderRecentApplications(myApplications);
 
             } catch (error) {
 
-                console.log(error);
-
+                console.log("Error:", error);
             }
-
         };
 
-
         if (isLoggedIn === "true" && currentUser) {
-
             fetchApplicationStats();
-
         }
-
     </script>
 
 </body>

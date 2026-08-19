@@ -11,6 +11,42 @@
     <style>
         body {
             background: #f8f8f8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-top: 72px;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .navbar {
+            height: 72px;
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            background: #000 !important;
+        }
+
+        .navbar-brand {
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            margin: 0 7px;
+        }
+
+        .nav-link:hover {
+            opacity: 0.7;
+        }
+
+        .navbar .btn {
+            border-radius: 8px;
         }
 
         .signup-card {
@@ -31,12 +67,45 @@
             border-radius: 8px;
         }
 
-        .navbar-brand {
-            letter-spacing: 1px;
+        footer {
+            background: #000;
+            color: white;
+            padding: 45px 0 25px;
         }
 
-        footer {
+        .footer-brand {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .footer-text {
+            color: #777;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        .footer-link {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 13px;
+            margin-left: 20px;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 12px;
             margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-link {
+                margin-left: 0;
+                margin-right: 15px;
+            }
         }
     </style>
 </head>
@@ -44,43 +113,40 @@
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg bg-black navbar-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
 
-                <a class="navbar-brand fw-bold" href="#" onclick="event.preventDefault(); goHome()">
+                <a class="navbar-brand fw-bold" href="index.html">
                     JobVault
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-
                     <span class="navbar-toggler-icon"></span>
-
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarContent">
 
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav mx-auto">
 
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#" onclick="event.preventDefault(); goHome()">
+                            <a class="nav-link text-white" href="index.html">
                                 Home
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="login.html">
-                                Login
-                            </a>
-                        </li>
-
                     </ul>
+
+                    <div class="d-flex">
+                        <a href="login.html" class="btn btn-light btn-sm px-3">
+                            Login
+                        </a>
+                    </div>
 
                 </div>
 
             </div>
         </nav>
     </header>
-
 
     <main>
 
@@ -158,6 +224,7 @@
 
                         <p class="text-center mt-4 mb-0">
                             Already have an account?
+
                             <a href="login.html" class="text-dark fw-semibold text-decoration-none">
                                 Login
                             </a>
@@ -173,51 +240,59 @@
 
     </main>
 
+    <footer>
 
-    <footer class="bg-black text-white">
+        <div class="container">
 
-        <div class="container py-3">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
 
-            <div class="text-center">
+                <div>
 
-                <h6 class="fw-bold mb-1">
-                    JobVault
-                </h6>
+                    <div class="footer-brand">
+                        JobVault
+                    </div>
 
-                <p class="small text-secondary mb-2">
-                    Track your applications. Manage your career.
-                </p>
+                    <div class="footer-text">
+                        Track your applications. Manage your career.
+                    </div>
 
-                <p class="small mb-0">
-                    © 2026 JobVault
-                </p>
+                </div>
 
+                <div class="mt-3 mt-md-0">
+
+                    <a href="index.html#features" class="footer-link">
+                        Features
+                    </a>
+
+                    <a href="index.html#how" class="footer-link">
+                        How It Works
+                    </a>
+
+                    <a href="index.html#tracker" class="footer-link">
+                        Job Tracker
+                    </a>
+
+                    <a href="login.html" class="footer-link">
+                        Login
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="copyright">
+                © 2026 JobVault. All rights reserved.
             </div>
 
         </div>
 
     </footer>
 
-
     <script>
         let name = document.getElementById("name");
         let email = document.getElementById("email");
         let password = document.getElementById("password");
         let confirmPassword = document.getElementById("confirmPassword");
-        let currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
-        let isLoggedIn = sessionStorage.getItem("isLoggedIn");
-
-        let goHome = () => {
-
-            if (isLoggedIn === "true" && currentUser) {
-                window.location.href = "home.html";
-            } else {
-                alert("Oops! You need to login first.");
-            }
-
-        };
-
-
 
         let handleSubmit = async (event) => {
 
@@ -233,6 +308,7 @@
             let upperCase = false;
 
             for (let i = 0; i < pass.length; i++) {
+
                 if (pass[i] >= "A" && pass[i] <= "Z") {
                     upperCase = true;
                     break;
@@ -247,6 +323,7 @@
             let hasNumber = false;
 
             for (let i = 0; i < pass.length; i++) {
+
                 if (pass[i] >= "0" && pass[i] <= "9") {
                     hasNumber = true;
                     break;
@@ -262,6 +339,7 @@
             let hasSpec = false;
 
             for (let i = 0; i < pass.length; i++) {
+
                 if (specCharacters.includes(pass[i])) {
                     hasSpec = true;
                     break;
@@ -286,35 +364,60 @@
                 password: password.value
             };
 
-            let data = await fetch("http://localhost:3000/users");
-            let users = await data.json();
+            try {
 
-            let existingUser = users.find((el) => {
-                return el.email.toLowerCase() === userEmail;
-            });
+                let data = await fetch("http://localhost:3000/users");
+                let users = await data.json();
 
-            if (existingUser) {
-                alert("Email already registered");
-                return;
+                let existingUser = users.find((el) => {
+                    return el.email.toLowerCase() === userEmail;
+                });
+
+                if (existingUser) {
+                    alert("Email already registered");
+                    return;
+                }
+
+                let response = await fetch(
+                    "http://localhost:3000/users",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(user)
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error("Failed to create account");
+                }
+
+                let result = await response.json();
+
+                sessionStorage.setItem(
+                    "currentUser",
+                    JSON.stringify(result)
+                );
+
+                sessionStorage.setItem(
+                    "isLoggedIn",
+                    "true"
+                );
+
+                sessionStorage.setItem(
+                    "showWelcome",
+                    "true"
+                );
+
+                window.location.href = "home.html";
+
+            } catch (error) {
+
+                console.error(error);
+                alert("Unable to create account. Please make sure JSON Server is running.");
+
             }
-
-            let response = await fetch("http://localhost:3000/users", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(user)
-            });
-
-            let result = await response.json();
-
-            console.log(result);
-
-            sessionStorage.setItem("currentUser", JSON.stringify(result));
-            sessionStorage.setItem("isLoggedIn", "true");
-            sessionStorage.setItem("showWelcome", "true");
-
-            window.location.href = "home.html";
         };
     </script>
 

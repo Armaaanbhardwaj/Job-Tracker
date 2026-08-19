@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobVault - Track Your Career</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            margin: 0;
+            padding-top: 72px;
+            background: #f8f8f8;
+            color: #111;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .navbar {
+            height: 72px;
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            background: #000 !important;
+        }
+
+        .navbar-brand {
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            margin: 0 7px;
+        }
+
+        .nav-link:hover {
+            opacity: 0.7;
+        }
+
+        .navbar .btn {
+            border-radius: 8px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        #applicationsNav,
+        #dashboardNav {
+            display: none;
+        }
+
+        .hero {
+            min-height: 620px;
+            display: flex;
+            align-items: center;
+            padding: 80px 0;
+            background: #f8f8f8;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 6vw, 72px);
+            line-height: 1.05;
+            font-weight: 700;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.7;
+            max-width: 650px;
+        }
+
+        .hero-buttons {
+            margin-top: 30px;
+        }
+
+        .hero-buttons .btn {
+            border-radius: 8px;
+            padding: 12px 24px;
+        }
+
+        .dashboard-preview {
+            background: #000;
+            border-radius: 18px;
+            padding: 18px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .preview-window {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .preview-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .preview-title {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .preview-button {
+            background: #000;
+            color: #fff;
+            border-radius: 6px;
+            padding: 7px 12px;
+            font-size: 11px;
+        }
+
+        .preview-stat {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+
+        .preview-number {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .preview-label {
+            color: #777;
+            font-size: 11px;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            color: #777;
+            font-size: 17px;
+            max-width: 650px;
+            margin: 15px auto 50px;
+        }
+
+        .feature-card {
+            background: #fff;
+            border: none;
+            border-radius: 15px;
+            padding: 30px;
+            height: 100%;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-number {
+            width: 42px;
+            height: 42px;
+            background: #000;
+            color: #fff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h4 {
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: #777;
+            line-height: 1.7;
+            margin-bottom: 0;
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 25px;
+        }
+
+        .step-number {
+            width: 55px;
+            height: 55px;
+            border: 2px solid #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .step-card h5 {
+            font-weight: 700;
+        }
+
+        .step-card p {
+            color: #777;
+            line-height: 1.6;
+        }
+
+        .tracker-section {
+            background: #000;
+            color: #fff;
+        }
+
+        .tracker-section .section-subtitle {
+            color: #aaa;
+        }
+
+        .tracker-card {
+            background: #fff;
+            color: #111;
+            border-radius: 16px;
+            padding: 25px;
+            height: 100%;
+        }
+
+        .tracker-card h5 {
+            font-weight: 700;
+        }
+
+        .tracker-card p {
+            color: #777;
+            line-height: 1.6;
+        }
+
+        .tracker-status {
+            display: inline-block;
+            background: #f1f1f1;
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        .cta {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 42px;
+            font-weight: 700;
+        }
+
+        .cta p {
+            color: #777;
+            font-size: 17px;
+            margin: 15px auto 30px;
+        }
+
+        .cta .btn {
+            border-radius: 8px;
+            padding: 12px 25px;
+        }
+
+        footer {
+            background: #000;
+            color: white;
+            padding: 45px 0 25px;
+        }
+
+        .footer-brand {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .footer-text {
+            color: #777;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        .footer-link {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 13px;
+            margin-left: 20px;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 12px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 991px) {
+            .navbar {
+                height: auto;
+                min-height: 72px;
+            }
+
+            .hero {
+                padding: 60px 0;
+            }
+
+            .dashboard-preview {
+                margin-top: 50px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 72px;
+            }
+
+            .section {
+                padding: 70px 0;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .cta h2 {
+                font-size: 32px;
+            }
+
+            .footer-link {
+                margin-left: 0;
+                margin-right: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+
+                <a class="navbar-brand fw-bold" href="index.html">
+                    JobVault
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+
+                    <ul class="navbar-nav mx-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="index.html">
+                                Home
+                            </a>
+                        </li>
+
+                        <li class="nav-item" id="applicationsNav">
+                            <a class="nav-link text-white" href="applications.html">
+                                Applications
+                            </a>
+                        </li>
+
+                        <li class="nav-item" id="dashboardNav">
+                            <a class="nav-link text-white" href="home.html">
+                                Dashboard
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#features">
+                                Features
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#how">
+                                How It Works
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#tracker">
+                                Job Tracker
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <div id="authButtons" class="d-flex gap-2">
+
+                        <a href="login.html" class="btn btn-outline-light btn-sm px-3">
+                            Login
+                        </a>
+
+                        <a href="signup.html" class="btn btn-light btn-sm px-3">
+                            Sign Up
+                        </a>
+
+                    </div>
+
+                    <div id="logoutButton" class="d-none">
+
+                        <button onclick="logout()" class="btn btn-outline-light btn-sm px-3">
+                            Logout
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="hero">
+            <div class="container">
+
+                <div class="row align-items-center">
+
+                    <div class="col-lg-7">
+
+                        <h1>
+                            Your job search,
+                            <br>
+                            <span>organized.</span>
+                        </h1>
+
+                        <p class="mt-4">
+                            Stop losing track of applications,
+                            interviews and opportunities.
+                            JobVault keeps your entire job search
+                            organized in one simple place.
+                        </p>
+
+                        <div class="hero-buttons d-flex gap-3 flex-wrap">
+
+                            <a href="signup.html" class="btn btn-dark">
+                                Start Tracking Free
+                            </a>
+
+                            <a href="#how" class="btn btn-outline-dark">
+                                See How It Works
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-5">
+
+                        <div class="dashboard-preview">
+
+                            <div class="preview-window">
+
+                                <div class="preview-top">
+
+                                    <div class="preview-title">
+                                        JobVault Dashboard
+                                    </div>
+
+                                    <div class="preview-button">
+                                        + Add Application
+                                    </div>
+
+                                </div>
+
+                                <div class="row g-2">
+
+                                    <div class="col-6">
+                                        <div class="preview-stat">
+                                            <div class="preview-number">24</div>
+                                            <div class="preview-label">Applications</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="preview-stat">
+                                            <div class="preview-number">7</div>
+                                            <div class="preview-label">Interviews</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="preview-stat">
+                                            <div class="preview-number">3</div>
+                                            <div class="preview-label">Offers</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="preview-stat">
+                                            <div class="preview-number">14</div>
+                                            <div class="preview-label">Active</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section id="features" class="section">
+
+            <div class="container">
+
+                <div class="text-center">
+
+                    <h2 class="section-title">
+                        Everything you need to manage your job search
+                    </h2>
+
+                    <p class="section-subtitle">
+                        Keep every opportunity organized,
+                        from the first application to the final offer.
+                    </p>
+
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-md-4">
+
+                        <div class="feature-card">
+
+                            <div class="feature-number">01</div>
+
+                            <h4>
+                                Track Applications
+                            </h4>
+
+                            <p>
+                                Add companies, positions,
+                                locations, dates and job links
+                                so every application is easy to find.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="feature-card">
+
+                            <div class="feature-number">02</div>
+
+                            <h4>
+                                Monitor Progress
+                            </h4>
+
+                            <p>
+                                Keep track of whether an
+                                application is applied,
+                                in interview, rejected or offered.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="feature-card">
+
+                            <div class="feature-number">03</div>
+
+                            <h4>
+                                Stay Organized
+                            </h4>
+
+                            <p>
+                                See your job search from one
+                                dashboard instead of managing
+                                multiple spreadsheets.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section id="how" class="section bg-white">
+
+            <div class="container">
+
+                <div class="text-center">
+
+                    <h2 class="section-title">
+                        How It Works
+                    </h2>
+
+                    <p class="section-subtitle">
+                        Start tracking your applications
+                        in just a few simple steps.
+                    </p>
+
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-md-4">
+
+                        <div class="step-card">
+
+                            <div class="step-number">1</div>
+
+                            <h5>
+                                Create Your Account
+                            </h5>
+
+                            <p>
+                                Sign up for JobVault and
+                                create your personal dashboard.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="step-card">
+
+                            <div class="step-number">2</div>
+
+                            <h5>
+                                Add Applications
+                            </h5>
+
+                            <p>
+                                Save the details of every job
+                                you apply for.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="step-card">
+
+                            <div class="step-number">3</div>
+
+                            <h5>
+                                Track Your Progress
+                            </h5>
+
+                            <p>
+                                Update application statuses
+                                and manage your opportunities.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section id="tracker" class="section tracker-section">
+
+            <div class="container">
+
+                <div class="text-center">
+
+                    <h2 class="section-title">
+                        One place for every application
+                    </h2>
+
+                    <p class="section-subtitle">
+                        Know exactly where you stand with
+                        every opportunity.
+                    </p>
+
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-md-3">
+
+                        <div class="tracker-card">
+
+                            <h5>Applied</h5>
+
+                            <p>
+                                Keep a record of every
+                                position you've applied for.
+                            </p>
+
+                            <span class="tracker-status">
+                                Applications
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div class="tracker-card">
+
+                            <h5>Interview</h5>
+
+                            <p>
+                                Never miss an interview
+                                opportunity.
+                            </p>
+
+                            <span class="tracker-status">
+                                Interviews
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div class="tracker-card">
+
+                            <h5>Offer</h5>
+
+                            <p>
+                                Keep your successful
+                                opportunities organized.
+                            </p>
+
+                            <span class="tracker-status">
+                                Offers
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div class="tracker-card">
+
+                            <h5>Rejected</h5>
+
+                            <p>
+                                Keep your complete job
+                                search history available.
+                            </p>
+
+                            <span class="tracker-status">
+                                History
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section class="cta">
+
+            <div class="container">
+
+                <h2>
+                    Ready to organize your job search?
+                </h2>
+
+                <p>
+                    Create your JobVault account
+                    and start tracking today.
+                </p>
+
+                <a href="signup.html" class="btn btn-dark">
+                    Get Started
+                </a>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+                <div>
+
+                    <div class="footer-brand">
+                        JobVault
+                    </div>
+
+                    <div class="footer-text">
+                        Track your applications.
+                        Manage your career.
+                    </div>
+
+                </div>
+
+                <div class="mt-3 mt-md-0">
+
+                    <a href="#features" class="footer-link">
+                        Features
+                    </a>
+
+                    <a href="#how" class="footer-link">
+                        How It Works
+                    </a>
+
+                    <a href="#tracker" class="footer-link">
+                        Job Tracker
+                    </a>
+
+                    <a href="applications.html" id="applicationsFooterLink" class="footer-link">
+                        Applications
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="copyright">
+                © 2026 JobVault. All rights reserved.
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        let currentUser = sessionStorage.getItem("currentUser");
+        let isLoggedIn = sessionStorage.getItem("isLoggedIn");
+
+        let applicationsNav = document.getElementById("applicationsNav");
+        let dashboardNav = document.getElementById("dashboardNav");
+        let authButtons = document.getElementById("authButtons");
+        let logoutButton = document.getElementById("logoutButton");
+        let applicationsFooterLink = document.getElementById("applicationsFooterLink");
+
+        if (isLoggedIn === "true" && currentUser) {
+            applicationsNav.style.display = "block";
+            dashboardNav.style.display = "block";
+
+            authButtons.classList.add("hidden");
+            logoutButton.classList.remove("d-none");
+
+            applicationsFooterLink.style.display = "inline";
+        } else {
+            applicationsNav.style.display = "none";
+            dashboardNav.style.display = "none";
+
+            authButtons.classList.remove("hidden");
+            logoutButton.classList.add("d-none");
+
+            applicationsFooterLink.style.display = "none";
+        }
+
+        function logout() {
+            sessionStorage.removeItem("currentUser");
+            sessionStorage.removeItem("isLoggedIn");
+            sessionStorage.removeItem("showWelcome");
+
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+
+</html>
