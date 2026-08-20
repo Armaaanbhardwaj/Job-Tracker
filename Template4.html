@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>JobVault - Resume Template 4</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <style>
+
+        body {
+            background: #f8f8f8;
+            min-height: 100vh;
+        }
+
+
+        .resume-container {
+            padding: 40px 15px;
+        }
+
+
+        .resume-paper {
+            max-width: 900px;
+            margin: auto;
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+        }
+
+
+        /* LEFT SIDEBAR */
+
+        .resume-sidebar {
+            background: #000000;
+            color: #ffffff;
+            padding: 40px 30px;
+        }
+
+
+        .sidebar-name {
+            font-size: 30px;
+            font-weight: 700;
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+
+        .sidebar-role {
+            margin-top: 10px;
+            color: #bdbdbd;
+            font-size: 14px;
+        }
+
+
+        .sidebar-section {
+            margin-top: 35px;
+        }
+
+
+        .sidebar-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #555;
+            margin-bottom: 15px;
+        }
+
+
+        .sidebar-contact {
+            font-size: 13px;
+            color: #d0d0d0;
+            line-height: 1.7;
+            word-break: break-word;
+        }
+
+
+        .sidebar-skills {
+            font-size: 13px;
+            color: #d0d0d0;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+
+        /* RIGHT CONTENT */
+
+        .resume-content {
+            padding: 40px 45px;
+        }
+
+
+        .content-section {
+            margin-bottom: 35px;
+        }
+
+
+        .content-title {
+            font-size: 19px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+
+        .content-title::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 22px;
+            background: #000;
+        }
+
+
+        .content-subtitle {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+
+        .content-muted {
+            color: #777;
+            font-size: 14px;
+            margin-top: 3px;
+        }
+
+
+        .project-text {
+            white-space: pre-line;
+            line-height: 1.7;
+        }
+
+
+        .action-buttons {
+            max-width: 900px;
+            margin: 20px auto 0;
+        }
+
+
+        @media (max-width: 768px) {
+
+            .resume-container {
+                padding: 20px 10px;
+            }
+
+
+            .resume-paper {
+                grid-template-columns: 1fr;
+            }
+
+
+            .resume-sidebar {
+                padding: 30px 25px;
+            }
+
+
+            .resume-content {
+                padding: 30px 25px;
+            }
+
+
+            .sidebar-name {
+                font-size: 28px;
+            }
+
+        }
+
+
+        @media print {
+
+            body {
+                background: #ffffff;
+            }
+
+
+            nav,
+            footer,
+            .action-buttons {
+                display: none !important;
+            }
+
+
+            .resume-container {
+                padding: 0;
+            }
+
+
+            .resume-paper {
+                max-width: none;
+                border-radius: 0;
+                box-shadow: none !important;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar navbar-expand-lg bg-black navbar-dark">
+
+        <div class="container">
+
+
+            <a
+                class="navbar-brand fw-bold"
+                href="index.html">
+
+                JobVault
+
+            </a>
+
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarContent">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+
+            <div
+                class="collapse navbar-collapse"
+                id="navbarContent">
+
+
+                <ul class="navbar-nav mx-auto">
+
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link text-white"
+                            href="index.html">
+
+                            Home
+
+                        </a>
+
+                    </li>
+
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link text-white"
+                            href="applications.html">
+
+                            Applications
+
+                        </a>
+
+                    </li>
+
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link text-white active"
+                            href="resume_builder.html">
+
+                            Resume Builder
+
+                        </a>
+
+                    </li>
+
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link text-white"
+                            href="home.html">
+
+                            Dashboard
+
+                        </a>
+
+                    </li>
+
+
+                </ul>
+
+
+                <div class="d-flex">
+
+                    <button
+                        class="btn btn-outline-light btn-sm px-3"
+                        onclick="handleLogout()">
+
+                        Logout
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- RESUME -->
+
+    <main class="resume-container">
+
+        <div class="container">
+
+
+            <div class="resume-paper shadow-sm">
+
+
+                <!-- LEFT SIDEBAR -->
+
+                <aside class="resume-sidebar">
+
+
+                    <div
+                        id="resumeName"
+                        class="sidebar-name">
+
+                        Your Name
+
+                    </div>
+
+
+                    <div
+                        id="experienceRole"
+                        class="sidebar-role">
+
+                        Job Role
+
+                    </div>
+
+
+
+                    <!-- CONTACT -->
+
+                    <section class="sidebar-section">
+
+                        <div class="sidebar-title">
+
+                            Contact
+
+                        </div>
+
+
+                        <div
+                            id="resumeContact"
+                            class="sidebar-contact">
+
+                            your@email.com
+                            <br>
+                            +91 XXXXX XXXXX
+
+                        </div>
+
+
+                        <div
+                            id="resumeLinkedin"
+                            class="sidebar-contact mt-2">
+
+                            LinkedIn Profile
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- SKILLS -->
+
+                    <section class="sidebar-section">
+
+                        <div class="sidebar-title">
+
+                            Skills
+
+                        </div>
+
+
+                        <div
+                            id="resumeSkills"
+                            class="sidebar-skills">
+
+                            Skills will appear here.
+
+                        </div>
+
+                    </section>
+
+
+                </aside>
+
+
+
+                <!-- RIGHT CONTENT -->
+
+                <div class="resume-content">
+
+
+                    <!-- EXPERIENCE -->
+
+                    <section class="content-section">
+
+                        <div class="content-title">
+
+                            Experience
+
+                        </div>
+
+
+                        <div
+                            id="experienceRoleMain"
+                            class="content-subtitle">
+
+                            Job Role
+
+                        </div>
+
+
+                        <div id="experienceCompany">
+
+                            Company Name
+
+                        </div>
+
+
+                        <div
+                            id="experienceDuration"
+                            class="content-muted">
+
+                            Duration
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- EDUCATION -->
+
+                    <section class="content-section">
+
+                        <div class="content-title">
+
+                            Education
+
+                        </div>
+
+
+                        <div
+                            id="educationDegree"
+                            class="content-subtitle">
+
+                            Degree
+
+                        </div>
+
+
+                        <div id="educationCollege">
+
+                            College / University
+
+                        </div>
+
+
+                        <div
+                            id="educationYear"
+                            class="content-muted">
+
+                            Graduation Year
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- PROJECTS -->
+
+                    <section class="content-section">
+
+                        <div class="content-title">
+
+                            Projects
+
+                        </div>
+
+
+                        <div
+                            id="resumeProjects"
+                            class="project-text">
+
+                            Projects will appear here.
+
+                        </div>
+
+                    </section>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ACTION BUTTONS -->
+
+            <div
+                class="action-buttons d-flex justify-content-end gap-2 flex-wrap">
+
+
+                <a
+                    href="template.html"
+                    class="btn btn-outline-dark">
+
+                    Back
+
+                </a>
+
+
+                <a
+                    href="resume_input.html"
+                    class="btn btn-outline-dark">
+
+                    Edit Resume
+
+                </a>
+
+
+                <button
+                    onclick="window.print()"
+                    class="btn btn-dark">
+
+                    Print / Save PDF
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- FOOTER -->
+
+    <footer class="bg-black text-white">
+
+        <div class="container py-4">
+
+            <div class="text-center">
+
+                <strong>
+                    JobVault
+                </strong>
+
+
+                <div class="text-secondary small mt-2">
+
+                    Professional Job Application Tracker & Resume Builder
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- LOAD RESUME DATA -->
+
+    <script>
+
+        const savedData =
+            localStorage.getItem("jobVaultResume");
+
+
+        if (savedData) {
+
+            const data =
+                JSON.parse(savedData);
+
+
+            /* NAME */
+
+            document
+                .getElementById("resumeName")
+                .textContent =
+                data.fullName || "Your Name";
+
+
+            /* SIDEBAR ROLE */
+
+            document
+                .getElementById("experienceRole")
+                .textContent =
+                data.jobRole || "Job Role";
+
+
+            /* MAIN ROLE */
+
+            document
+                .getElementById("experienceRoleMain")
+                .textContent =
+                data.jobRole || "Job Role";
+
+
+            /* CONTACT */
+
+            document
+                .getElementById("resumeContact")
+                .innerHTML =
+                `${data.email || "your@email.com"}
+                <br>
+                ${data.phone || "+91 XXXXX XXXXX"}`;
+
+
+            /* LINKEDIN */
+
+            document
+                .getElementById("resumeLinkedin")
+                .textContent =
+                data.linkedin || "LinkedIn Profile";
+
+
+            /* EXPERIENCE */
+
+            document
+                .getElementById("experienceCompany")
+                .textContent =
+                data.company || "Company Name";
+
+
+            document
+                .getElementById("experienceDuration")
+                .textContent =
+                data.experienceDuration || "Duration";
+
+
+            /* EDUCATION */
+
+            document
+                .getElementById("educationDegree")
+                .textContent =
+                data.degree || "Degree";
+
+
+            document
+                .getElementById("educationCollege")
+                .textContent =
+                data.college || "College / University";
+
+
+            document
+                .getElementById("educationYear")
+                .textContent =
+                data.graduationYear || "Graduation Year";
+
+
+            /* SKILLS */
+
+            document
+                .getElementById("resumeSkills")
+                .textContent =
+                data.skills || "Skills will appear here.";
+
+
+            /* PROJECTS */
+
+            document
+                .getElementById("resumeProjects")
+                .textContent =
+                data.projects || "Projects will appear here.";
+
+        }
+
+    </script>
+    <script>
+
+    let currentUser =
+        JSON.parse(
+            sessionStorage.getItem("currentUser")
+        );
+
+    let isLoggedIn =
+        sessionStorage.getItem("isLoggedIn");
+
+
+    if (
+        isLoggedIn !== "true" ||
+        !currentUser
+    ) {
+
+        window.location.href = "login.html";
+
+    }
+
+
+    function handleLogout() {
+
+        sessionStorage.removeItem("currentUser");
+
+        sessionStorage.removeItem("isLoggedIn");
+
+        sessionStorage.removeItem("showWelcome");
+
+        window.location.href = "index.html";
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

@@ -277,6 +277,12 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link text-white" href="resume_builder.html">
+                                Resume Builder
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link text-white active" href="home.html">
                                 Dashboard
                             </a>
@@ -814,8 +820,11 @@
 
         let renderRecentApplications = (applications) => {
 
-            let container = document.getElementById("recentApplicationsContainer");
-            let emptyState = document.getElementById("recentApplicationsEmpty");
+            let container =
+                document.getElementById("recentApplicationsContainer");
+
+            let emptyState =
+                document.getElementById("recentApplicationsEmpty");
 
             container.innerHTML = "";
 
@@ -828,32 +837,72 @@
 
             emptyState.style.display = "none";
 
-            applications.sort((a, b) => {
-                return new Date(b.createdAt) - new Date(a.createdAt);
+
+            /*
+                Latest application sabse upar:
+                createdAt available ho to createdAt use hoga.
+                Agar createdAt nahi hai to date use hogi.
+            */
+
+            let sortedApplications = [...applications].sort((a, b) => {
+
+                let dateA = new Date(
+                    a.createdAt || a.date || 0
+                ).getTime();
+
+                let dateB = new Date(
+                    b.createdAt || b.date || 0
+                ).getTime();
+
+                return dateB - dateA;
             });
 
-            let recent = applications.slice(0, 4);
+
+            let recent = sortedApplications.slice(0, 4);
+
 
             recent.forEach((application) => {
 
-                let statusClass = getStatusClass(application.status);
+                let statusClass =
+                    getStatusClass(application.status);
 
-                let formattedDate = new Date(
-                    application.createdAt
-                ).toLocaleDateString(
-                    "en-IN",
-                    {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric"
+
+                let applicationDate =
+                    application.createdAt ||
+                    application.date;
+
+
+                let formattedDate = "Date unavailable";
+
+
+                if (applicationDate) {
+
+                    let parsedDate =
+                        new Date(applicationDate);
+
+
+                    if (!isNaN(parsedDate.getTime())) {
+
+                        formattedDate =
+                            parsedDate.toLocaleDateString(
+                                "en-IN",
+                                {
+                                    day: "2-digit",
+                                    month: "short",
+                                    year: "numeric"
+                                }
+                            );
                     }
-                );
+                }
+
 
                 let item = `
                     <div class="recent-application">
+
                         <div class="row align-items-center g-3">
 
                             <div class="col-md-5">
+
                                 <div class="recent-company">
                                     ${application.company}
                                 </div>
@@ -861,26 +910,37 @@
                                 <div class="recent-position">
                                     ${application.position}
                                 </div>
+
                             </div>
 
+
                             <div class="col-md-3">
+
                                 <span class="status-badge ${statusClass}">
                                     ${application.status}
                                 </span>
+
                             </div>
 
+
                             <div class="col-md-4 text-md-end">
+
                                 <div class="recent-date">
                                     Added on ${formattedDate}
                                 </div>
+
                             </div>
 
                         </div>
+
                     </div>
                 `;
 
+
                 container.innerHTML += item;
+
             });
+
         };
 
         let fetchApplicationStats = async () => {
@@ -898,7 +958,12 @@
                 let applications = await response.json();
 
                 let myApplications = applications.filter((application) => {
-                    return application.user === currentUser.id;
+
+                    return (
+                        application.user === currentUser.id ||
+                        application.userId === currentUser.id
+                );
+
                 });
 
                 document.getElementById("totalApplications").textContent =

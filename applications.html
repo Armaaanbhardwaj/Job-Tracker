@@ -266,6 +266,14 @@
                             </a>
                         </li>
 
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="resume_builder.html">
+                                Resume Builder
+                            </a>
+                        </li>
+
+
                         <li class="nav-item">
                             <a class="nav-link text-white" href="home.html">
                                 Dashboard
@@ -818,7 +826,12 @@
                 let applications = await response.json();
 
                 allMyApplications = applications.filter((application) => {
-                    return application.user === currentUser.id;
+
+                    return (
+                        application.user === currentUser.id ||
+                        application.userId === currentUser.id
+                    );
+
                 });
 
                 filterApplications();
