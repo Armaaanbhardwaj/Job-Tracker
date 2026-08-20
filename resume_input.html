@@ -2,21 +2,13 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JobVault - Resume Information</title>
 
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-
         body {
             background: #f8f8f8;
             min-height: 100vh;
@@ -106,6 +98,14 @@
             padding: 10px 25px;
         }
 
+        .entry-card {
+            background: #fafafa;
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
         footer {
             background: #000;
             color: white;
@@ -124,7 +124,6 @@
         }
 
         @media (max-width: 768px) {
-
             main {
                 padding: 30px 0;
             }
@@ -136,111 +135,58 @@
             .page-title {
                 font-size: 28px;
             }
-
         }
-
     </style>
-
 </head>
 
-
 <body>
-
-
-    <!-- NAVBAR -->
 
     <nav class="navbar navbar-expand-lg navbar-dark">
 
         <div class="container">
 
-            <a
-                class="navbar-brand fw-bold"
-                href="index.html">
-
+            <a class="navbar-brand fw-bold" href="index.html">
                 JobVault
-
             </a>
 
-
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarContent">
-
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
                 <span class="navbar-toggler-icon"></span>
-
             </button>
 
-
-            <div
-                class="collapse navbar-collapse"
-                id="navbarContent">
+            <div class="collapse navbar-collapse" id="navbarContent">
 
                 <ul class="navbar-nav mx-auto">
 
                     <li class="nav-item">
-
-                        <a
-                            class="nav-link text-white"
-                            href="index.html">
-
+                        <a class="nav-link text-white" href="index.html">
                             Home
-
                         </a>
-
                     </li>
 
-
                     <li class="nav-item">
-
-                        <a
-                            class="nav-link text-white"
-                            href="applications.html">
-
+                        <a class="nav-link text-white" href="applications.html">
                             Applications
-
                         </a>
-
                     </li>
 
-
                     <li class="nav-item">
-
-                        <a
-                            class="nav-link text-white active"
-                            href="resume_builder.html">
-
+                        <a class="nav-link text-white active" href="resume_builder.html">
                             Resume Builder
-
                         </a>
-
                     </li>
 
-
                     <li class="nav-item">
-
-                        <a
-                            class="nav-link text-white"
-                            href="home.html">
-
+                        <a class="nav-link text-white" href="home.html">
                             Dashboard
-
                         </a>
-
                     </li>
 
                 </ul>
 
-
                 <div class="d-flex">
 
-                    <button
-                        class="btn btn-outline-light btn-sm px-3"
-                        onclick="handleLogout()">
-
+                    <button class="btn btn-outline-light btn-sm px-3" onclick="handleLogout()">
                         Logout
-
                     </button>
 
                 </div>
@@ -250,10 +196,6 @@
         </div>
 
     </nav>
-
-
-
-    <!-- MAIN -->
 
     <main>
 
@@ -271,13 +213,9 @@
 
             </div>
 
-
             <div class="card resume-form-card shadow-sm">
 
                 <form id="resumeForm">
-
-
-                    <!-- PERSONAL -->
 
                     <div>
 
@@ -289,78 +227,47 @@
 
                             <div class="col-12">
 
-                                <label
-                                    for="fullName"
-                                    class="form-label">
-
+                                <label for="fullName" class="form-label">
                                     Full Name
-
                                 </label>
 
-                                <input
-                                    type="text"
-                                    id="fullName"
-                                    class="form-control"
-                                    placeholder="Enter your full name"
-                                    required>
+                                <input type="text" id="fullName" class="form-control"
+                                    placeholder="Enter your full name" required>
 
                             </div>
 
-
                             <div class="col-md-6">
 
-                                <label
-                                    for="email"
-                                    class="form-label">
-
+                                <label for="email" class="form-label">
                                     Email
-
                                 </label>
 
-                                <input
-                                    type="email"
-                                    id="email"
-                                    class="form-control"
-                                    placeholder="Enter your email"
-                                    required>
+                                <input type="email" id="email" class="form-control"
+                                    placeholder="Enter your email" required>
 
                             </div>
-
 
                             <div class="col-md-6">
 
-                                <label
-                                    for="phone"
-                                    class="form-label">
-
-                                    Phone Number
-
+                                <label class="form-label">
+                                    Phone Numbers
                                 </label>
 
-                                <input
-                                    type="tel"
-                                    id="phone"
-                                    class="form-control"
-                                    placeholder="Enter your phone number"
-                                    required>
+                                <div id="phoneContainer"></div>
+
+                                <button type="button" class="btn btn-outline-dark btn-sm mt-2" onclick="addPhone()">
+                                    + Add Phone
+                                </button>
 
                             </div>
-
 
                             <div class="col-12">
 
-                                <label
-                                    for="linkedin"
-                                    class="form-label">
-
+                                <label for="linkedin" class="form-label">
                                     LinkedIn
-
                                 </label>
 
-                                <input
-                                    type="url"
-                                    id="linkedin"
-                                    class="form-control"
+                                <input type="url" id="linkedin" class="form-control"
                                     placeholder="https://linkedin.com/in/your-profile">
 
                             </div>
@@ -369,219 +276,90 @@
 
                     </div>
 
-
                     <hr class="section-divider">
-
-
-                    <!-- EDUCATION -->
 
                     <div>
 
-                        <h2 class="section-title">
-                            Education
-                        </h2>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
 
-                        <div class="row g-3">
+                            <h2 class="section-title mb-0">
+                                Education
+                            </h2>
 
-                            <div class="col-12">
-
-                                <label
-                                    for="college"
-                                    class="form-label">
-
-                                    College / University
-
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="college"
-                                    class="form-control"
-                                    placeholder="Enter college or university">
-
-                            </div>
-
-
-                            <div class="col-md-6">
-
-                                <label
-                                    for="degree"
-                                    class="form-label">
-
-                                    Degree
-
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="degree"
-                                    class="form-control"
-                                    placeholder="e.g. B.Tech Computer Science">
-
-                            </div>
-
-
-                            <div class="col-md-6">
-
-                                <label
-                                    for="graduationYear"
-                                    class="form-label">
-
-                                    Graduation Year
-
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="graduationYear"
-                                    class="form-control"
-                                    placeholder="e.g. 2027">
-
-                            </div>
+                            <button type="button" class="btn btn-outline-dark btn-sm" onclick="addEducation()">
+                                + Add Education
+                            </button>
 
                         </div>
 
-                    </div>
+                        <div id="educationContainer"></div>
 
+                    </div>
 
                     <hr class="section-divider">
 
-
-                    <!-- EXPERIENCE -->
-
                     <div>
 
-                        <h2 class="section-title">
-                            Experience
-                        </h2>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
 
-                        <div class="row g-3">
+                            <h2 class="section-title mb-0">
+                                Experience
+                            </h2>
 
-                            <div class="col-12">
-
-                                <label
-                                    for="company"
-                                    class="form-label">
-
-                                    Company
-
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="company"
-                                    class="form-control"
-                                    placeholder="Enter company name">
-
-                            </div>
-
-
-                            <div class="col-md-6">
-
-                                <label
-                                    for="jobRole"
-                                    class="form-label">
-
-                                    Job Role
-
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="jobRole"
-                                    class="form-control"
-                                    placeholder="e.g. Software Developer">
-
-                            </div>
-
-
-                            <div class="col-md-6">
-
-                                <label
-                                    for="experienceDuration"
-                                    class="form-label">
-
-                                    Duration
-
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="experienceDuration"
-                                    class="form-control"
-                                    placeholder="e.g. Jan 2025 - Present">
-
-                            </div>
+                            <button type="button" class="btn btn-outline-dark btn-sm" onclick="addExperience()">
+                                + Add Experience
+                            </button>
 
                         </div>
 
-                    </div>
+                        <div id="experienceContainer"></div>
 
+                    </div>
 
                     <hr class="section-divider">
 
-
-                    <!-- SKILLS -->
-
                     <div>
 
-                        <h2 class="section-title">
-                            Skills
-                        </h2>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
 
-                        <label
-                            for="skills"
-                            class="form-label">
+                            <h2 class="section-title mb-0">
+                                Skills
+                            </h2>
 
-                            Skills
+                            <button type="button" class="btn btn-outline-dark btn-sm" onclick="addSkill()">
+                                + Add Skill
+                            </button>
 
-                        </label>
+                        </div>
 
-                        <textarea
-                            id="skills"
-                            class="form-control"
-                            rows="4"
-                            placeholder="Java, HTML, CSS, JavaScript, SQL"></textarea>
+                        <div id="skillsContainer"></div>
 
                     </div>
-
 
                     <hr class="section-divider">
 
-
-                    <!-- PROJECTS -->
-
                     <div>
 
-                        <h2 class="section-title">
-                            Projects
-                        </h2>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
 
-                        <label
-                            for="projects"
-                            class="form-label">
+                            <h2 class="section-title mb-0">
+                                Projects
+                            </h2>
 
-                            Projects
+                            <button type="button" class="btn btn-outline-dark btn-sm" onclick="addProject()">
+                                + Add Project
+                            </button>
 
-                        </label>
+                        </div>
 
-                        <textarea
-                            id="projects"
-                            class="form-control"
-                            rows="5"
-                            placeholder="Enter your projects and their details"></textarea>
+                        <div id="projectsContainer"></div>
 
                     </div>
-
 
                     <div class="d-flex justify-content-end mt-4">
 
-                        <button
-                            type="submit"
-                            class="btn btn-dark">
-
+                        <button type="submit" class="btn btn-dark">
                             Update Resume
-
                         </button>
 
                     </div>
@@ -593,10 +371,6 @@
         </div>
 
     </main>
-
-
-
-    <!-- FOOTER -->
 
     <footer>
 
@@ -614,42 +388,256 @@
 
     </footer>
 
-
-
     <script>
 
-        /* LOGIN CHECK */
+        let currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+        let isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
-        let currentUser =
-            JSON.parse(
-                sessionStorage.getItem("currentUser")
-            );
-
-        let isLoggedIn =
-            sessionStorage.getItem("isLoggedIn");
-
-
-        if (
-            isLoggedIn !== "true" ||
-            !currentUser
-        ) {
-
+        if (isLoggedIn !== "true" || !currentUser) {
             window.location.href = "login.html";
+        }
+
+        const phoneContainer = document.getElementById("phoneContainer");
+        const educationContainer = document.getElementById("educationContainer");
+        const experienceContainer = document.getElementById("experienceContainer");
+        const skillsContainer = document.getElementById("skillsContainer");
+        const projectsContainer = document.getElementById("projectsContainer");
+
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function addPhone(value = "") {
+
+            let div = document.createElement("div");
+
+            div.className = "input-group mb-2 phone-item";
+
+            div.innerHTML = `
+                <input type="tel"
+                    class="form-control phone-input"
+                    placeholder="Enter phone number"
+                    value="${escapeHtml(value)}"
+                    required>
+
+                <button type="button"
+                    class="btn btn-outline-danger"
+                    onclick="removeItem(this)">
+                    Remove
+                </button>
+            `;
+
+            phoneContainer.appendChild(div);
+        }
+
+        function addEducation(data = {}) {
+
+            let div = document.createElement("div");
+
+            div.className = "entry-card education-item";
+
+            div.innerHTML = `
+                <div class="row g-3">
+
+                    <div class="col-12">
+
+                        <label class="form-label">
+                            College / University
+                        </label>
+
+                        <input type="text"
+                            class="form-control education-college"
+                            placeholder="Enter college or university"
+                            value="${escapeHtml(data.college || "")}">
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Degree
+                        </label>
+
+                        <input type="text"
+                            class="form-control education-degree"
+                            placeholder="e.g. B.Tech Computer Science"
+                            value="${escapeHtml(data.degree || "")}">
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Graduation Year
+                        </label>
+
+                        <input type="text"
+                            class="form-control education-year"
+                            placeholder="e.g. 2027"
+                            value="${escapeHtml(data.graduationYear || "")}">
+
+                    </div>
+
+                </div>
+
+                <button type="button"
+                    class="btn btn-outline-danger btn-sm mt-3"
+                    onclick="removeItem(this)">
+                    Remove Education
+                </button>
+            `;
+
+            educationContainer.appendChild(div);
+        }
+
+        function addExperience(data = {}) {
+
+            let div = document.createElement("div");
+
+            div.className = "entry-card experience-item";
+
+            div.innerHTML = `
+                <div class="row g-3">
+
+                    <div class="col-12">
+
+                        <label class="form-label">
+                            Company
+                        </label>
+
+                        <input type="text"
+                            class="form-control experience-company"
+                            placeholder="Enter company name"
+                            value="${escapeHtml(data.company || "")}">
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Job Role
+                        </label>
+
+                        <input type="text"
+                            class="form-control experience-role"
+                            placeholder="e.g. Software Developer"
+                            value="${escapeHtml(data.jobRole || "")}">
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Duration
+                        </label>
+
+                        <input type="text"
+                            class="form-control experience-duration"
+                            placeholder="e.g. Jan 2025 - Present"
+                            value="${escapeHtml(data.duration || "")}">
+
+                    </div>
+
+                </div>
+
+                <button type="button"
+                    class="btn btn-outline-danger btn-sm mt-3"
+                    onclick="removeItem(this)">
+                    Remove Experience
+                </button>
+            `;
+
+            experienceContainer.appendChild(div);
+        }
+
+        function addSkill(value = "") {
+
+            let div = document.createElement("div");
+
+            div.className = "input-group mb-2 skill-item";
+
+            div.innerHTML = `
+                <input type="text"
+                    class="form-control skill-input"
+                    placeholder="e.g. JavaScript"
+                    value="${escapeHtml(value)}"
+                    required>
+
+                <button type="button"
+                    class="btn btn-outline-danger"
+                    onclick="removeItem(this)">
+                    Remove
+                </button>
+            `;
+
+            skillsContainer.appendChild(div);
+        }
+
+        function addProject(data = {}) {
+
+            let div = document.createElement("div");
+
+            div.className = "entry-card project-item";
+
+            div.innerHTML = `
+                <div class="row g-3">
+
+                    <div class="col-12">
+
+                        <label class="form-label">
+                            Project Name
+                        </label>
+
+                        <input type="text"
+                            class="form-control project-name"
+                            placeholder="Enter project name"
+                            value="${escapeHtml(data.name || "")}">
+
+                    </div>
+
+                    <div class="col-12">
+
+                        <label class="form-label">
+                            Project Details
+                        </label>
+
+                        <textarea
+                            class="form-control project-details"
+                            rows="3"
+                            placeholder="Describe your project">${escapeHtml(data.details || "")}</textarea>
+
+                    </div>
+
+                </div>
+
+                <button type="button"
+                    class="btn btn-outline-danger btn-sm mt-3"
+                    onclick="removeItem(this)">
+                    Remove Project
+                </button>
+            `;
+
+            projectsContainer.appendChild(div);
+        }
+
+        function removeItem(button) {
+
+            button.closest(
+                ".phone-item, .education-item, .experience-item, .skill-item, .project-item"
+            ).remove();
 
         }
 
-
-        /* LOAD SAVED RESUME */
-
-        const savedData =
-            localStorage.getItem("jobVaultResume");
-
+        const savedData = localStorage.getItem("jobVaultResume");
 
         if (savedData) {
 
-            const data =
-                JSON.parse(savedData);
-
+            const data = JSON.parse(savedData);
 
             document.getElementById("fullName").value =
                 data.fullName || "";
@@ -657,123 +645,253 @@
             document.getElementById("email").value =
                 data.email || "";
 
-            document.getElementById("phone").value =
-                data.phone || "";
-
             document.getElementById("linkedin").value =
                 data.linkedin || "";
 
-            document.getElementById("college").value =
-                data.college || "";
+            let phones =
+                data.phones ||
+                (data.phone ? [data.phone] : []);
 
-            document.getElementById("degree").value =
-                data.degree || "";
+            phones.forEach(phone => addPhone(phone));
 
-            document.getElementById("graduationYear").value =
-                data.graduationYear || "";
+            let education =
+                data.education || [];
 
-            document.getElementById("company").value =
-                data.company || "";
+            if (
+                !education.length &&
+                (data.college ||
+                    data.degree ||
+                    data.graduationYear)
+            ) {
 
-            document.getElementById("jobRole").value =
-                data.jobRole || "";
+                education = [{
+                    college: data.college || "",
+                    degree: data.degree || "",
+                    graduationYear: data.graduationYear || ""
+                }];
 
-            document.getElementById("experienceDuration").value =
-                data.experienceDuration || "";
+            }
 
-            document.getElementById("skills").value =
-                data.skills || "";
+            education.forEach(item => addEducation(item));
 
-            document.getElementById("projects").value =
-                data.projects || "";
+            let experience =
+                data.experience || [];
 
+            if (
+                !experience.length &&
+                (data.company ||
+                    data.jobRole ||
+                    data.experienceDuration)
+            ) {
+
+                experience = [{
+                    company: data.company || "",
+                    jobRole: data.jobRole || "",
+                    duration: data.experienceDuration || ""
+                }];
+
+            }
+
+            experience.forEach(item => addExperience(item));
+
+            let skills =
+                data.skillsList ||
+                (
+                    data.skills
+                        ? data.skills
+                            .split(",")
+                            .map(skill => skill.trim())
+                            .filter(Boolean)
+                        : []
+                );
+
+            skills.forEach(skill => addSkill(skill));
+
+            let projects =
+                data.projectList || [];
+
+            if (!projects.length && data.projects) {
+
+                projects = [{
+                    name: "",
+                    details: data.projects
+                }];
+
+            }
+
+            projects.forEach(project => addProject(project));
         }
 
+        if (!phoneContainer.children.length) {
+            addPhone();
+        }
 
-        /* SAVE RESUME */
+        if (!educationContainer.children.length) {
+            addEducation();
+        }
 
-        document
-            .getElementById("resumeForm")
+        if (!experienceContainer.children.length) {
+            addExperience();
+        }
+
+        if (!skillsContainer.children.length) {
+            addSkill();
+        }
+
+        if (!projectsContainer.children.length) {
+            addProject();
+        }
+
+        document.getElementById("resumeForm")
             .addEventListener("submit", function(event) {
 
                 event.preventDefault();
 
+                const phones =
+                    [...document.querySelectorAll(".phone-input")]
+                        .map(input => input.value.trim())
+                        .filter(Boolean);
+
+                const education =
+                    [...document.querySelectorAll(".education-item")]
+                        .map(item => ({
+                            college:
+                                item.querySelector(".education-college").value.trim(),
+
+                            degree:
+                                item.querySelector(".education-degree").value.trim(),
+
+                            graduationYear:
+                                item.querySelector(".education-year").value.trim()
+                        }))
+                        .filter(item =>
+                            item.college ||
+                            item.degree ||
+                            item.graduationYear
+                        );
+
+                const experience =
+                    [...document.querySelectorAll(".experience-item")]
+                        .map(item => ({
+                            company:
+                                item.querySelector(".experience-company").value.trim(),
+
+                            jobRole:
+                                item.querySelector(".experience-role").value.trim(),
+
+                            duration:
+                                item.querySelector(".experience-duration").value.trim()
+                        }))
+                        .filter(item =>
+                            item.company ||
+                            item.jobRole ||
+                            item.duration
+                        );
+
+                const skillsList =
+                    [...document.querySelectorAll(".skill-input")]
+                        .map(input => input.value.trim())
+                        .filter(Boolean);
+
+                const projectList =
+                    [...document.querySelectorAll(".project-item")]
+                        .map(item => ({
+                            name:
+                                item.querySelector(".project-name").value.trim(),
+
+                            details:
+                                item.querySelector(".project-details").value.trim()
+                        }))
+                        .filter(item =>
+                            item.name ||
+                            item.details
+                        );
 
                 const resumeData = {
 
                     fullName:
-                        document.getElementById("fullName").value,
+                        document.getElementById("fullName").value.trim(),
 
                     email:
-                        document.getElementById("email").value,
+                        document.getElementById("email").value.trim(),
 
-                    phone:
-                        document.getElementById("phone").value,
+                    phones:
+
+                        phones,
 
                     linkedin:
-                        document.getElementById("linkedin").value,
+                        document.getElementById("linkedin").value.trim(),
+
+                    education:
+                        education,
+
+                    experience:
+                        experience,
+
+                    skillsList:
+                        skillsList,
+
+                    projectList:
+                        projectList,
+
+                    phone:
+                        phones[0] || "",
 
                     college:
-                        document.getElementById("college").value,
+                        education[0]?.college || "",
 
                     degree:
-                        document.getElementById("degree").value,
+                        education[0]?.degree || "",
 
                     graduationYear:
-                        document.getElementById("graduationYear").value,
+                        education[0]?.graduationYear || "",
 
                     company:
-                        document.getElementById("company").value,
+                        experience[0]?.company || "",
 
                     jobRole:
-                        document.getElementById("jobRole").value,
+                        experience[0]?.jobRole || "",
 
                     experienceDuration:
-                        document.getElementById("experienceDuration").value,
+                        experience[0]?.duration || "",
 
                     skills:
-                        document.getElementById("skills").value,
+                        skillsList.join(", "),
 
                     projects:
-                        document.getElementById("projects").value
-
+                        projectList
+                            .map(project =>
+                                `${project.name}${project.details
+                                    ? " - " + project.details
+                                    : ""}`
+                            )
+                            .join("\n")
                 };
-
 
                 localStorage.setItem(
                     "jobVaultResume",
                     JSON.stringify(resumeData)
                 );
 
-
                 window.location.href =
                     "template.html";
 
             });
 
-
-        /* LOGOUT */
-
         function handleLogout() {
 
             sessionStorage.removeItem("currentUser");
-
             sessionStorage.removeItem("isLoggedIn");
-
             sessionStorage.removeItem("showWelcome");
 
             window.location.href =
-                "index.html";
+                "login.html";
 
         }
 
     </script>
 
-
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
-    </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
