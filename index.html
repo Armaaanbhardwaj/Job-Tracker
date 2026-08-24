@@ -1076,7 +1076,7 @@
 
                         <div class="hero-buttons d-flex gap-3 flex-wrap">
 
-                            <a href="signup.html" class="btn btn-dark">
+                            <a href="signup.html" id="startTrackingButton" class="btn btn-dark">
                                 Start Tracking Free
                             </a>
 
@@ -1618,7 +1618,7 @@
                     and start tracking today.
                 </p>
 
-                <a href="signup.html" class="btn btn-dark">
+                <a href="signup.html" id="getStartedButton" class="btn btn-dark">
                     Get Started
                 </a>
 
@@ -1691,6 +1691,8 @@
         let authButtons = document.getElementById("authButtons");
         let logoutButton = document.getElementById("logoutButton");
         let applicationsFooterLink = document.getElementById("applicationsFooterLink");
+        let getStartedButton = document.getElementById("getStartedButton");
+        let startTrackingButton = document.getElementById("startTrackingButton");
 
         if (isLoggedIn === "true" && currentUser) {
             applicationsNav.style.display = "block";
@@ -1700,6 +1702,8 @@
             logoutButton.classList.remove("d-none");
 
             applicationsFooterLink.style.display = "inline";
+            getStartedButton.href = "home.html";
+            startTrackingButton.href = "home.html";
         } else {
             applicationsNav.style.display = "none";
             dashboardNav.style.display = "none";
@@ -1708,6 +1712,8 @@
             logoutButton.classList.add("d-none");
 
             applicationsFooterLink.style.display = "none";
+            getStartedButton.href = "signup.html";
+            startTrackingButton.href = "signup.html";
         }
 
         function logout() {
