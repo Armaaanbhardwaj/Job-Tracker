@@ -642,6 +642,318 @@
             }
         }
 
+    
+        /* ================= CAREER TOOLKIT PROFESSIONAL ================= */
+
+        .toolkit {
+            padding: 100px 0;
+            background: #fff;
+        }
+
+        .toolkit-card {
+            position: relative;
+            overflow: hidden;
+            background: #f7f7f7;
+            border: 1px solid #e4e4e4;
+            border-radius: 24px;
+            padding: 60px;
+            box-shadow: 0 20px 55px rgba(0, 0, 0, 0.07);
+        }
+
+        .toolkit-card::before {
+            content: "";
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border: 1px solid #e3e3e3;
+            border-radius: 50%;
+            right: -150px;
+            top: -160px;
+            pointer-events: none;
+        }
+
+        .toolkit-card::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border: 1px solid #e8e8e8;
+            border-radius: 50%;
+            left: -110px;
+            bottom: -100px;
+            pointer-events: none;
+        }
+
+        .toolkit-card > .row {
+            position: relative;
+            z-index: 2;
+        }
+
+        .toolkit-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.8px;
+        }
+
+        .toolkit-dot {
+            width: 7px;
+            height: 7px;
+            background: #000;
+            border-radius: 50%;
+        }
+
+        .toolkit h2 {
+            font-size: clamp(35px, 4vw, 50px);
+            line-height: 1.08;
+            letter-spacing: -1.8px;
+            font-weight: 700;
+            margin-top: 17px;
+            max-width: 590px;
+        }
+
+        .toolkit h2 span {
+            color: #666;
+        }
+
+        .toolkit-description {
+            max-width: 600px;
+            color: #666;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .toolkit-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 28px;
+            max-width: 610px;
+        }
+
+        .toolkit-feature {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            background: #fff;
+            border: 1px solid #e4e4e4;
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        .feature-check {
+            width: 28px;
+            height: 28px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .toolkit-feature strong {
+            display: block;
+            font-size: 11px;
+            color: #222;
+        }
+
+        .toolkit-feature small {
+            display: block;
+            color: #888;
+            font-size: 9px;
+            margin-top: 3px;
+        }
+
+        .toolkit-action {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-top: 30px;
+        }
+
+        .toolkit-action .btn {
+            border-radius: 9px;
+            padding: 12px 18px;
+        }
+
+        .toolkit-action .btn span {
+            margin-left: 8px;
+            font-size: 16px;
+        }
+
+        .toolkit-mini-text {
+            color: #888;
+            font-size: 9px;
+            line-height: 1.5;
+        }
+
+        .toolkit-mini-text strong {
+            color: #222;
+        }
+
+        .resume-showcase {
+            background: #000;
+            border-radius: 18px;
+            padding: 15px;
+            box-shadow: 0 25px 55px rgba(0,0,0,0.18);
+            transform: rotate(1deg);
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+
+        .resume-showcase:hover {
+            transform: rotate(0deg) translateY(-5px);
+            box-shadow: 0 30px 65px rgba(0,0,0,0.22);
+        }
+
+        .showcase-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #aaa;
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            padding: 3px 5px 12px;
+        }
+
+        .ready-badge {
+            border: 1px solid #555;
+            border-radius: 20px;
+            color: #fff;
+            padding: 4px 8px;
+            font-size: 7px;
+            letter-spacing: 1px;
+        }
+
+        .resume-sheet {
+            background: #fff;
+            border-radius: 9px;
+            min-height: 330px;
+            padding: 24px;
+        }
+
+        .resume-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .resume-name {
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .resume-role {
+            margin-top: 4px;
+            font-size: 7px;
+            font-weight: 700;
+            letter-spacing: 1.3px;
+            color: #777;
+        }
+
+        .resume-initial {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #111;
+            color: #fff;
+            border-radius: 9px;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .resume-contact {
+            margin-top: 13px;
+            padding-bottom: 13px;
+            border-bottom: 1px solid #ddd;
+            color: #777;
+            font-size: 6.5px;
+        }
+
+        .resume-section-title {
+            margin-top: 17px;
+            margin-bottom: 8px;
+            font-size: 7px;
+            font-weight: 800;
+            letter-spacing: 1.4px;
+            color: #222;
+        }
+
+        .resume-line {
+            height: 4px;
+            background: #e5e5e5;
+            border-radius: 4px;
+            margin-top: 6px;
+        }
+
+        .resume-line.large { width: 94%; }
+        .resume-line.medium { width: 78%; }
+        .resume-line.small { width: 55%; }
+
+        .resume-skills {
+            display: flex;
+            gap: 6px;
+        }
+
+        .resume-skills span {
+            width: 42px;
+            height: 14px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+        }
+
+        .showcase-bottom {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 5px 2px;
+            color: #777;
+            font-size: 7px;
+        }
+
+        @media (max-width: 991px) {
+            .toolkit-card {
+                padding: 40px 30px;
+            }
+
+            .resume-showcase {
+                margin-top: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .toolkit {
+                padding: 70px 0;
+            }
+
+            .toolkit-card {
+                padding: 30px 20px;
+            }
+
+            .toolkit h2 {
+                font-size: 33px;
+            }
+
+            .toolkit-features {
+                grid-template-columns: 1fr;
+            }
+
+            .toolkit-action {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+
     </style>
 </head>
 
@@ -964,76 +1276,140 @@
 
                 <div class="toolkit-card">
 
-                    <div class="row align-items-center">
+                    <div class="row align-items-center g-5">
 
                         <div class="col-lg-7">
 
                             <div class="toolkit-label">
-                                Career Toolkit
+                                <span class="toolkit-dot"></span>
+                                CAREER TOOLKIT
                             </div>
 
                             <h2>
-                                Your resume and job search,
-                                together.
+                                Your career.
+                                <span>One powerful workspace.</span>
                             </h2>
 
-                            <p class="mt-3">
-                                JobVault is more than an application
-                                tracker. Create a polished resume,
-                                choose a professional template and
-                                keep your career documents ready while
-                                you manage every opportunity.
+                            <p class="toolkit-description mt-3">
+                                Build a professional resume and manage your job
+                                search from one focused workspace. Choose a
+                                modern template, keep your resume ready and
+                                stay organized for every opportunity.
                             </p>
 
-                            <div class="toolkit-points">
+                            <div class="toolkit-features">
 
-                                <span class="toolkit-point">
-                                    Professional Templates
-                                </span>
+                                <div class="toolkit-feature">
+                                    <div class="feature-check">✓</div>
+                                    <div>
+                                        <strong>Professional Templates</strong>
+                                        <small>Clean and modern resume designs</small>
+                                    </div>
+                                </div>
 
-                                <span class="toolkit-point">
-                                    Easy Resume Editing
-                                </span>
+                                <div class="toolkit-feature">
+                                    <div class="feature-check">✓</div>
+                                    <div>
+                                        <strong>Easy Resume Editing</strong>
+                                        <small>Update your resume whenever you need</small>
+                                    </div>
+                                </div>
 
-                                <span class="toolkit-point">
-                                    Print Ready
-                                </span>
+                                <div class="toolkit-feature">
+                                    <div class="feature-check">✓</div>
+                                    <div>
+                                        <strong>Print Ready</strong>
+                                        <small>Keep your resume ready to share</small>
+                                    </div>
+                                </div>
 
-                                <span class="toolkit-point">
-                                    Job Application Tracking
-                                </span>
+                                <div class="toolkit-feature">
+                                    <div class="feature-check">✓</div>
+                                    <div>
+                                        <strong>Job Application Tracking</strong>
+                                        <small>Manage opportunities with JobVault</small>
+                                    </div>
+                                </div>
 
                             </div>
 
-                            <a
-                                href="resume_builder.html"
-                                class="btn btn-dark mt-4 px-4">
-                                Explore Resume Builder
-                            </a>
+                            <div class="toolkit-action">
+
+                                <a href="resume_builder.html" class="btn btn-dark">
+                                    Explore Resume Builder
+                                    <span>→</span>
+                                </a>
+
+                                <div class="toolkit-mini-text">
+                                    <strong>JobVault</strong><br>
+                                    Your career, organized.
+                                </div>
+
+                            </div>
 
                         </div>
 
                         <div class="col-lg-5">
 
-                            <div class="resume-preview">
+                            <div class="resume-showcase">
 
-                                <div class="resume-paper">
+                                <div class="showcase-top">
+                                    <span>RESUME BUILDER</span>
+                                    <span class="ready-badge">READY</span>
+                                </div>
 
-                                    <div class="resume-paper-name">
-                                        YOUR NAME
+                                <div class="resume-sheet">
+
+                                    <div class="resume-header">
+
+                                        <div>
+                                            <div class="resume-name">YOUR NAME</div>
+                                            <div class="resume-role">SOFTWARE DEVELOPER</div>
+                                        </div>
+
+                                        <div class="resume-initial">YN</div>
+
                                     </div>
 
-                                    <div class="resume-paper-line long"></div>
-                                    <div class="resume-paper-line short"></div>
+                                    <div class="resume-contact">
+                                        your@email.com
+                                        &nbsp; • &nbsp;
+                                        LinkedIn
+                                        &nbsp; • &nbsp;
+                                        Portfolio
+                                    </div>
 
-                                    <div class="resume-paper-line medium mt-4"></div>
-                                    <div class="resume-paper-line long"></div>
-                                    <div class="resume-paper-line long"></div>
+                                    <div class="resume-section-title">
+                                        EXPERIENCE
+                                    </div>
 
-                                    <div class="resume-paper-line medium mt-4"></div>
-                                    <div class="resume-paper-line long"></div>
-                                    <div class="resume-paper-line short"></div>
+                                    <div class="resume-line large"></div>
+                                    <div class="resume-line medium"></div>
+                                    <div class="resume-line small"></div>
 
+                                    <div class="resume-section-title">
+                                        EDUCATION
+                                    </div>
+
+                                    <div class="resume-line large"></div>
+                                    <div class="resume-line medium"></div>
+
+                                    <div class="resume-section-title">
+                                        SKILLS
+                                    </div>
+
+                                    <div class="resume-skills">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+
+                                </div>
+
+                                <div class="showcase-bottom">
+                                    <span>Professional Template</span>
+                                    <span>JobVault</span>
                                 </div>
 
                             </div>
@@ -1048,7 +1424,7 @@
 
         </section>
 
-        <section id="how" class="section bg-white">
+<section id="how" class="section bg-white">
 
             <div class="container">
 
