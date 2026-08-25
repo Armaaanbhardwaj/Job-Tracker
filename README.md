@@ -113,31 +113,31 @@ The Resume Builder is designed to make it easier for users to:
 
 ### 🏠 Home Dashboard
 
-![Home Dashboard](screenshots/home.png)
+![Home Dashboard](./screenshots/home.png)
 
 ### 🔐 Login
 
-![Login Page](screenshots/login.png)
+![Login Page](./screenshots/login.png)
 
 ### 📝 Sign Up
 
-![Sign Up Page](screenshots/signup.png)
+![Sign Up Page](./screenshots/signup.png)
 
 ### 📋 Applications
 
-![Applications Page](screenshots/applications.png)
+![Applications Page](./screenshots/applications.png)
 
 ### ➕ Add Application
 
-![Add Application](screenshots/add-application.png)
+![Add Application](./screenshots/add-application.png)
 
 ### ✏️ Edit Application
 
-![Edit Application](screenshots/edit-application.png)
+![Edit Application](./screenshots/edit-application.png)
 
 ### 📄 Resume Builder
 
-![Resume Builder](screenshots/resume-builder.png)
+![Resume Builder](./screenshots/resume-builder.png)
 
 ---
 
