@@ -1,16 +1,21 @@
 {
   "name": "job-application-tracker",
   "version": "1.0.0",
-  "description": "",
+  "description": "JobVault Job Application Tracker",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "json-server --host 0.0.0.0 --port $PORT db.json"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "job",
+    "application",
+    "tracker",
+    "resume"
+  ],
+  "author": "JobVault",
   "license": "ISC",
   "type": "commonjs",
-  "devDependencies": {
+  "dependencies": {
     "json-server": "^1.0.0-beta.15"
   }
 }
