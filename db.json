@@ -1,0 +1,223 @@
+{
+  "users": [
+    {
+      "name": "Krish Garg",
+      "email": "krish@gmail.com",
+      "password": "Krish@2006",
+      "id": "WVvei5m0hl4"
+    },
+    {
+      "name": "armaan",
+      "email": "armaan@gmail.com",
+      "password": "Armaan@2006",
+      "id": "YPd-U9UpwLo"
+    }
+  ],
+  "applications": [
+    {
+      "id": "app001",
+      "user": "WVvei5m0hl4",
+      "company": "Google",
+      "position": "Software Engineer",
+      "location": "Bangalore",
+      "status": "Interview",
+      "date": "2026-08-10",
+      "jobLink": "https://careers.google.com/",
+      "notes": "Cleared the online assessment. Interview scheduled.",
+      "createdAt": "2026-08-18T18:30:00.000Z"
+    },
+    {
+      "id": "app002",
+      "user": "WVvei5m0hl4",
+      "company": "Microsoft",
+      "position": "Software Development Engineer",
+      "location": "Hyderabad",
+      "status": "Applied",
+      "date": "2026-08-14",
+      "jobLink": "https://careers.microsoft.com/",
+      "notes": "Applied through the official careers portal.",
+      "createdAt": "2026-08-17T14:20:00.000Z"
+    },
+    {
+      "id": "app003",
+      "user": "WVvei5m0hl4",
+      "company": "Amazon",
+      "position": "SDE Intern",
+      "location": "Bangalore",
+      "status": "Applied",
+      "date": "2026-08-15",
+      "jobLink": "https://www.amazon.jobs/",
+      "notes": "Applied for software development internship.",
+      "createdAt": "2026-08-16T11:45:00.000Z"
+    },
+    {
+      "id": "app004",
+      "user": "WVvei5m0hl4",
+      "company": "Deloitte",
+      "position": "Technology Analyst",
+      "location": "Gurgaon",
+      "status": "Offer",
+      "date": "2026-08-05",
+      "jobLink": "https://www.deloitte.com/",
+      "notes": "Received offer after final interview.",
+      "createdAt": "2026-08-15T16:10:00.000Z"
+    },
+    {
+      "id": "app005",
+      "user": "WVvei5m0hl4",
+      "company": "TCS",
+      "position": "Graduate Engineer Trainee",
+      "location": "Chandigarh",
+      "status": "Rejected",
+      "date": "2026-07-30",
+      "jobLink": "https://www.tcs.com/careers",
+      "notes": "Application was not selected.",
+      "createdAt": "2026-08-12T10:15:00.000Z"
+    },
+    {
+      "id": "app006",
+      "user": "WVvei5m0hl4",
+      "company": "Infosys",
+      "position": "Systems Engineer",
+      "location": "Pune",
+      "status": "Applied",
+      "date": "2026-08-08",
+      "jobLink": "https://www.infosys.com/careers/",
+      "notes": "Application submitted successfully.",
+      "createdAt": "2026-08-10T09:30:00.000Z"
+    },
+    {
+      "id": "app007",
+      "user": "WVvei5m0hl4",
+      "company": "Adobe",
+      "position": "Software Engineer Intern",
+      "location": "Noida",
+      "status": "Interview",
+      "date": "2026-08-16",
+      "jobLink": "https://careers.adobe.com/",
+      "notes": "Technical interview scheduled for next week.",
+      "createdAt": "2026-08-19T18:20:00.000Z"
+    },
+    {
+      "id": "app008",
+      "user": "WVvei5m0hl4",
+      "company": "Flipkart",
+      "position": "SDE Intern",
+      "location": "Bangalore",
+      "status": "Applied",
+      "date": "2026-08-18",
+      "jobLink": "https://www.flipkartcareers.com/",
+      "notes": "Applied for summer software engineering internship.",
+      "createdAt": "2026-08-19T15:10:00.000Z"
+    },
+    {
+      "id": "app009",
+      "user": "WVvei5m0hl4",
+      "company": "Walmart",
+      "position": "Software Engineer",
+      "location": "Bangalore",
+      "status": "Rejected",
+      "date": "2026-08-02",
+      "jobLink": "https://careers.walmart.com/",
+      "notes": "Received rejection email after application review.",
+      "createdAt": "2026-08-09T12:40:00.000Z"
+    },
+    {
+      "id": "app010",
+      "user": "WVvei5m0hl4",
+      "company": "Accenture",
+      "position": "Associate Software Engineer",
+      "location": "Pune",
+      "status": "Applied",
+      "date": "2026-08-17",
+      "jobLink": "https://www.accenture.com/in-en/careers",
+      "notes": "Application submitted through campus hiring portal.",
+      "createdAt": "2026-08-19T11:30:00.000Z"
+    },
+    {
+      "id": "app011",
+      "user": "WVvei5m0hl4",
+      "company": "Cognizant",
+      "position": "Programmer Analyst",
+      "location": "Chennai",
+      "status": "Interview",
+      "date": "2026-08-12",
+      "jobLink": "https://careers.cognizant.com/",
+      "notes": "Cleared aptitude round and invited for technical interview.",
+      "createdAt": "2026-08-18T10:20:00.000Z"
+    },
+    {
+      "id": "app012",
+      "user": "WVvei5m0hl4",
+      "company": "Capgemini",
+      "position": "Software Engineer",
+      "location": "Mumbai",
+      "status": "Applied",
+      "date": "2026-08-19",
+      "jobLink": "https://www.capgemini.com/careers/",
+      "notes": "Applied through the company career portal.",
+      "createdAt": "2026-08-20T09:15:00.000Z"
+    },
+    {
+      "id": "app013",
+      "user": "WVvei5m0hl4",
+      "company": "IBM",
+      "position": "Associate Developer",
+      "location": "Bangalore",
+      "status": "Offer",
+      "date": "2026-08-01",
+      "jobLink": "https://www.ibm.com/careers",
+      "notes": "Received offer after completing the interview process.",
+      "createdAt": "2026-08-08T17:30:00.000Z"
+    },
+    {
+      "id": "app014",
+      "user": "WVvei5m0hl4",
+      "company": "Tech Mahindra",
+      "position": "Software Developer",
+      "location": "Chandigarh",
+      "status": "Rejected",
+      "date": "2026-07-28",
+      "jobLink": "https://careers.techmahindra.com/",
+      "notes": "Did not proceed to the next selection round.",
+      "createdAt": "2026-08-05T13:45:00.000Z"
+    },
+    {
+      "id": "app015",
+      "user": "WVvei5m0hl4",
+      "company": "Oracle",
+      "position": "Cloud Engineer Intern",
+      "location": "Hyderabad",
+      "status": "Applied",
+      "date": "2026-08-20",
+      "jobLink": "https://www.oracle.com/careers/",
+      "notes": "Applied for cloud engineering internship.",
+      "createdAt": "2026-08-20T14:30:00.000Z"
+    },
+    {
+      "user": "WVvei5m0hl4",
+      "company": "Yahooo",
+      "position": "CFO",
+      "location": "Bangalore",
+      "status": "Offer",
+      "date": "2026-08-12",
+      "jobLink": "https://yahoo.com",
+      "notes": "yahoo",
+      "createdAt": "2026-08-20T11:25:15.721Z",
+      "id": "p2b70l4Narc"
+    },
+    {
+      "user": "WVvei5m0hl4",
+      "company": "Nvidia",
+      "position": "SDE-2",
+      "location": "Remote",
+      "status": "Applied",
+      "date": "2026-08-24",
+      "jobLink": "https:/googlr.com",
+      "notes": "interview",
+      "createdAt": "2026-08-25T15:28:00.653Z",
+      "id": "g52pAxLm7mQ"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
