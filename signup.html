@@ -366,7 +366,7 @@
 
             try {
 
-                let data = await fetch("http://localhost:3000/users");
+                let data = await fetch("https://jobvault-api-nump.onrender.com/users");
                 let users = await data.json();
 
                 let existingUser = users.find((el) => {
@@ -379,7 +379,7 @@
                 }
 
                 let response = await fetch(
-                    "http://localhost:3000/users",
+                    "https://jobvault-api-nump.onrender.com/users",
                     {
                         method: "POST",
                         headers: {

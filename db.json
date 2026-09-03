@@ -39,18 +39,6 @@
       "createdAt": "2026-08-17T14:20:00.000Z"
     },
     {
-      "id": "app003",
-      "user": "WVvei5m0hl4",
-      "company": "Amazon",
-      "position": "SDE Intern",
-      "location": "Bangalore",
-      "status": "Applied",
-      "date": "2026-08-15",
-      "jobLink": "https://www.amazon.jobs/",
-      "notes": "Applied for software development internship.",
-      "createdAt": "2026-08-16T11:45:00.000Z"
-    },
-    {
       "id": "app004",
       "user": "WVvei5m0hl4",
       "company": "Deloitte",

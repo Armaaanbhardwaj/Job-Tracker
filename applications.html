@@ -645,10 +645,10 @@
             let method;
 
             if (editingApplicationId === null) {
-                url = "http://localhost:3000/applications";
+                url = "https://jobvault-api-nump.onrender.com/applications";
                 method = "POST";
             } else {
-                url = `http://localhost:3000/applications/${editingApplicationId}`;
+                url = `https://jobvault-api-nump.onrender.com/applications/${editingApplicationId}`;
                 method = "PUT";
             }
 
@@ -817,7 +817,7 @@
 
         let fetchApplications = async () => {
             try {
-                let response = await fetch("http://localhost:3000/applications");
+                let response = await fetch("https://jobvault-api-nump.onrender.com/applications");
 
                 if (!response.ok) {
                     throw new Error("Failed to fetch applications");
@@ -844,7 +844,7 @@
         let deleteApplication = async (id) => {
             try {
                 let response = await fetch(
-                    `http://localhost:3000/applications/${id}`,
+                    `https://jobvault-api-nump.onrender.com/applications/${id}`,
                     {
                         method: "DELETE"
                     }
@@ -865,7 +865,7 @@
         let editApplication = async (id) => {
             try {
                 let response = await fetch(
-                    `http://localhost:3000/applications/${id}`
+                    `https://jobvault-api-nump.onrender.com/applications/${id}`
                 );
 
                 if (!response.ok) {

@@ -272,7 +272,7 @@
 
             try {
 
-                let data = await fetch("http://localhost:3000/users");
+                let data = await fetch("https://jobvault-api-nump.onrender.com/users");
                 let users = await data.json();
 
                 let verifiedUser = users.find((user) => {
