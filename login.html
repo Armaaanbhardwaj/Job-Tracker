@@ -263,56 +263,56 @@
     </footer>
 
     <script>
-        let email = document.getElementById("email");
-        let password = document.getElementById("password");
 
-        let handleLogin = async (event) => {
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
 
+        const handleLogin = async (event) => {
             event.preventDefault();
 
             try {
+                const response = await fetch(
+                    "http://localhost:5000/api/auth/login",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            email: email.value.trim().toLowerCase(),
+                            password: password.value
+                        })
+                    }
+                );
 
-                let data = await fetch("https://jobvault-api-nump.onrender.com/users");
-                let users = await data.json();
+                const result = await response.json();
 
-                let verifiedUser = users.find((user) => {
-                    return user.email === email.value.toLowerCase();
-                });
-
-                if (!verifiedUser) {
-                    alert("Email doesnt exist");
+                if (!response.ok) {
+                    alert(result.message || "Login failed.");
                     return;
                 }
 
-                if (verifiedUser.password !== password.value) {
-                    alert("Password is Incorrect!");
-                    return;
-                }
-
+                // Save the authenticated user and JWT.
                 sessionStorage.setItem(
                     "currentUser",
-                    JSON.stringify(verifiedUser)
+                    JSON.stringify(result.user)
                 );
 
-                sessionStorage.setItem(
-                    "isLoggedIn",
-                    "true"
-                );
+                sessionStorage.setItem("isLoggedIn", "true");
+                sessionStorage.setItem("showWelcome", "true");
+                sessionStorage.setItem("token", result.token);
 
-                sessionStorage.setItem(
-                    "showWelcome",
-                    "true"
-                );
-
+                // Go to the dashboard after login.
                 window.location.href = "home.html";
 
             } catch (error) {
-
-                console.error(error);
-                alert("Unable to login. Please make sure JSON Server is running.");
-
+                console.error("Login error:", error);
+                alert(
+                    "Unable to connect to JobVault. Make sure the backend is running."
+                );
             }
         };
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>

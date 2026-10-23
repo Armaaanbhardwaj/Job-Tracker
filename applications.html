@@ -598,214 +598,232 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        let editingApplicationId = null;
+        const API_URL = "http://localhost:5000/api/applications";
 
-        let currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+        let editingApplicationId = null;
+        let allMyApplications = [];
+
+        let currentUser = JSON.parse(
+            sessionStorage.getItem("currentUser") || "null"
+        );
+
         let isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
-        if (isLoggedIn !== "true" || !currentUser) {
-            alert("Oops! You need to login first.");
+        let token =
+            sessionStorage.getItem("token") ||
+            sessionStorage.getItem("authToken") ||
+            localStorage.getItem("token") ||
+            localStorage.getItem("authToken");
+
+        if (isLoggedIn !== "true" || !currentUser || !token) {
+            alert("Please log in to access your applications.");
             window.location.href = "login.html";
         }
 
-        let company = document.getElementById("company");
-        let position = document.getElementById("position");
-        let jobLocation = document.getElementById("location");
-        let status = document.getElementById("status");
-        let date = document.getElementById("date");
-        let jobLink = document.getElementById("jobLink");
-        let notes = document.getElementById("notes");
-        let applicationForm = document.getElementById("applicationForm");
-        let applicationsContainer = document.getElementById("applicationsContainer");
-        let noApplications = document.getElementById("noApplications");
-        let applicationCount = document.getElementById("applicationCount");
-        let searchInput = document.getElementById("searchInput");
-        let statusFilter = document.getElementById("statusFilter");
-        let allMyApplications = [];
+        const company = document.getElementById("company");
+        const position = document.getElementById("position");
+        const jobLocation = document.getElementById("location");
+        const status = document.getElementById("status");
+        const date = document.getElementById("date");
+        const jobLink = document.getElementById("jobLink");
+        const notes = document.getElementById("notes");
 
-        let handleSubmit = async (event) => {
-            event.preventDefault();
+        const applicationForm = document.getElementById("applicationForm");
+        const applicationsContainer = document.getElementById("applicationsContainer");
+        const noApplications = document.getElementById("noApplications");
+        const applicationCount = document.getElementById("applicationCount");
+        const searchInput = document.getElementById("searchInput");
+        const statusFilter = document.getElementById("statusFilter");
 
-            let application = {
-                user: currentUser.id,
-                company: company.value,
-                position: position.value,
-                location: jobLocation.value,
-                status: status.value,
-                date: date.value,
-                jobLink: jobLink.value,
-                notes: notes.value
+        const authHeaders = () => ({
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        });
+
+        // Safely display user-provided text inside HTML.
+        const escapeHTML = (value) => {
+            return String(value ?? "").replace(/[&<>"']/g, (character) => ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            })[character]);
+        };
+
+        // Convert the backend's data format to the format used by this page.
+        const normalizeApplication = (application) => ({
+            id: application._id,
+            company: application.company || "",
+            position: application.role || "",
+            location: application.location || "",
+            status: application.status || "Applied",
+            date: application.applicationDate
+                ? String(application.applicationDate).slice(0, 10)
+                : "",
+            jobLink: application.jobUrl || "",
+            notes: application.notes || ""
+        });
+
+        const getStatusClass = (applicationStatus) => {
+            const classes = {
+                Applied: "status-applied",
+                Interview: "status-interview",
+                Offer: "status-offer",
+                Rejected: "status-rejected",
+                Selected: "status-offer"
             };
 
-            if (editingApplicationId === null) {
-                application.createdAt = new Date().toISOString();
-            }
+            return classes[applicationStatus] || "status-default";
+        };
 
-            let url;
-            let method;
+        // ADD OR UPDATE APPLICATION
+        const handleSubmit = async (event) => {
+            event.preventDefault();
 
-            if (editingApplicationId === null) {
-                url = "https://jobvault-api-nump.onrender.com/applications";
-                method = "POST";
-            } else {
-                url = `https://jobvault-api-nump.onrender.com/applications/${editingApplicationId}`;
-                method = "PUT";
-            }
+            const application = {
+                company: company.value.trim(),
+                role: position.value.trim(),
+                location: jobLocation.value.trim(),
+                status: status.value,
+                applicationDate: date.value,
+                jobUrl: jobLink.value.trim(),
+                notes: notes.value.trim()
+            };
+
+            const isEditing = editingApplicationId !== null;
+
+            const url = isEditing
+                ? `${API_URL}/${encodeURIComponent(editingApplicationId)}`
+                : API_URL;
 
             try {
-                let response = await fetch(url, {
-                    method: method,
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                const response = await fetch(url, {
+                    method: isEditing ? "PUT" : "POST",
+                    headers: authHeaders(),
                     body: JSON.stringify(application)
                 });
 
-                if (!response.ok) {
-                    throw new Error("Failed to save application");
-                }
+                const result = await response.json();
 
-                await response.json();
+                if (!response.ok) {
+                    throw new Error(result.message || "Unable to save application.");
+                }
 
                 editingApplicationId = null;
                 applicationForm.reset();
 
-                let modalElement = document.getElementById("addApplicationModal");
-                let modal = bootstrap.Modal.getInstance(modalElement);
+                const modalElement = document.getElementById("addApplicationModal");
+                const modal = bootstrap.Modal.getInstance(modalElement);
 
                 if (modal) {
                     modal.hide();
                 }
 
-                fetchApplications();
+                await fetchApplications();
 
+                alert(result.message || "Application saved successfully.");
             } catch (error) {
-                console.error(error);
-                alert("Unable to save application. Please try again.");
+                console.error("Save application error:", error);
+                alert(error.message || "Unable to save application.");
             }
         };
 
-        let getStatusClass = (status) => {
-            if (status === "Applied") {
-                return "status-applied";
-            }
-
-            if (status === "Interview") {
-                return "status-interview";
-            }
-
-            if (status === "Offer") {
-                return "status-offer";
-            }
-
-            if (status === "Rejected") {
-                return "status-rejected";
-            }
-
-            return "status-default";
-        };
-
-        let displayApplications = (applications) => {
+        // DISPLAY APPLICATION CARDS
+        const displayApplications = (applications) => {
             applicationsContainer.innerHTML = "";
             applicationCount.textContent = applications.length;
 
-            if (applications.length > 0) {
-                noApplications.style.display = "none";
-            } else {
-                noApplications.style.display = "block";
-            }
+            noApplications.style.display =
+                applications.length === 0 ? "block" : "none";
 
             applications.forEach((application) => {
+                const statusClass = getStatusClass(application.status);
 
-                let statusClass = getStatusClass(application.status);
+                const safeCompany = escapeHTML(application.company);
+                const safePosition = escapeHTML(application.position);
+                const safeLocation = escapeHTML(application.location);
+                const safeStatus = escapeHTML(application.status);
+                const safeDate = escapeHTML(application.date);
+                const safeNotes = escapeHTML(application.notes || "No notes added");
+                const safeId = escapeHTML(application.id);
 
-                let card = `
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card job-card shadow-sm h-100 p-4">
+                // Only allow HTTP(S) links for external job pages.
+                let safeJobLink = "";
+                try {
+                    const parsedUrl = new URL(application.jobLink);
 
-                            <div class="d-flex justify-content-between align-items-start mb-3">
+                    if (["http:", "https:"].includes(parsedUrl.protocol)) {
+                        safeJobLink = escapeHTML(parsedUrl.href);
+                    }
+                } catch {
+                    // Hide invalid or empty links.
+                }
 
-                                <div>
-                                    <h5 class="fw-bold mb-1">
-                                        ${application.company}
-                                    </h5>
+                const card = `
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card job-card shadow-sm h-100 p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h5 class="fw-bold mb-1">${safeCompany}</h5>
+                            <p class="text-secondary mb-0">${safePosition}</p>
+                        </div>
 
-                                    <p class="text-secondary mb-0">
-                                        ${application.position}
-                                    </p>
-                                </div>
+                        <span class="status-badge ${statusClass}">
+                            ${safeStatus}
+                        </span>
+                    </div>
 
-                                <span class="status-badge ${statusClass}">
-                                    ${application.status}
-                                </span>
+                    <div class="mb-3">
+                        <p class="mb-2">
+                            <strong>Location:</strong> ${safeLocation || "Not specified"}
+                        </p>
+                        <p class="mb-2">
+                            <strong>Date:</strong> ${safeDate || "Not specified"}
+                        </p>
+                    </div>
 
-                            </div>
+                    <p class="text-secondary mb-3">${safeNotes}</p>
 
-                            <div class="mb-3">
-
-                                <p class="mb-2">
-                                    <strong>Location:</strong>
-                                    ${application.location}
-                                </p>
-
-                                <p class="mb-2">
-                                    <strong>Date:</strong>
-                                    ${application.date}
-                                </p>
-
-                            </div>
-
-                            <p class="text-secondary mb-3">
-                                ${application.notes || "No notes added"}
-                            </p>
-
-                            <div class="mt-auto">
-
-                                <div class="d-flex gap-2 flex-wrap">
-
-                                    ${application.jobLink
-                        ? `<a href="${application.jobLink}" target="_blank" class="btn btn-dark btn-sm">
-                                            View Job
-                                        </a>`
+                    <div class="mt-auto">
+                        <div class="d-flex gap-2 flex-wrap">
+                            ${safeJobLink
+                        ? `<a href="${safeJobLink}" target="_blank"
+                                      rel="noopener noreferrer"
+                                      class="btn btn-dark btn-sm">View Job</a>`
                         : ""
                     }
 
-                                    <button class="btn btn-outline-dark btn-sm"
-                                        onclick="editApplication('${application.id}')">
-                                        Edit
-                                    </button>
+                            <button class="btn btn-outline-dark btn-sm"
+                                onclick="editApplication('${safeId}')">
+                                Edit
+                            </button>
 
-                                    <button class="btn btn-outline-dark btn-sm"
-                                        onclick="deleteApplication('${application.id}')">
-                                        Delete
-                                    </button>
-
-                                </div>
-
-                            </div>
-
+                            <button class="btn btn-outline-dark btn-sm"
+                                onclick="deleteApplication('${safeId}')">
+                                Delete
+                            </button>
                         </div>
                     </div>
-                `;
+                </div>
+            </div>
+        `;
 
-                applicationsContainer.innerHTML += card;
+                applicationsContainer.insertAdjacentHTML("beforeend", card);
             });
         };
 
-        let filterApplications = () => {
-            let searchText = searchInput.value.toLowerCase().trim();
-            let selectedStatus = statusFilter.value;
+        // SEARCH AND STATUS FILTER
+        const filterApplications = () => {
+            const searchText = searchInput.value.toLowerCase().trim();
+            const selectedStatus = statusFilter.value;
 
-            let filtered = allMyApplications.filter((application) => {
+            const filtered = allMyApplications.filter((application) => {
+                const matchesSearch =
+                    application.company.toLowerCase().includes(searchText) ||
+                    application.position.toLowerCase().includes(searchText);
 
-                let companyName = application.company.toLowerCase();
-                let positionName = application.position.toLowerCase();
-
-                let matchesSearch =
-                    companyName.includes(searchText) ||
-                    positionName.includes(searchText);
-
-                let matchesStatus =
+                const matchesStatus =
                     selectedStatus === "all" ||
                     application.status === selectedStatus;
 
@@ -815,64 +833,84 @@
             displayApplications(filtered);
         };
 
-        let fetchApplications = async () => {
+        // FETCH ALL APPLICATIONS FOR THE LOGGED-IN USER
+        const fetchApplications = async () => {
             try {
-                let response = await fetch("https://jobvault-api-nump.onrender.com/applications");
-
-                if (!response.ok) {
-                    throw new Error("Failed to fetch applications");
-                }
-
-                let applications = await response.json();
-
-                allMyApplications = applications.filter((application) => {
-
-                    return (
-                        application.user === currentUser.id ||
-                        application.userId === currentUser.id
-                    );
-
+                const response = await fetch(API_URL, {
+                    headers: authHeaders()
                 });
 
-                filterApplications();
+                const result = await response.json();
 
+                if (!response.ok) {
+                    throw new Error(result.message || "Unable to load applications.");
+                }
+
+                allMyApplications = (result.applications || [])
+                    .map(normalizeApplication);
+
+                filterApplications();
             } catch (error) {
-                console.error(error);
+                console.error("Fetch applications error:", error);
+                applicationsContainer.innerHTML = `
+            <div class="col-12">
+                <div class="alert alert-danger">
+                    Unable to load applications. Please check your login
+                    and backend connection, then refresh the page.
+                </div>
+            </div>
+        `;
+                applicationCount.textContent = "0";
+                noApplications.style.display = "none";
             }
         };
 
-        let deleteApplication = async (id) => {
+        // DELETE APPLICATION
+        const deleteApplication = async (id) => {
+            if (!confirm("Are you sure you want to delete this application?")) {
+                return;
+            }
+
             try {
-                let response = await fetch(
-                    `https://jobvault-api-nump.onrender.com/applications/${id}`,
+                const response = await fetch(
+                    `${API_URL}/${encodeURIComponent(id)}`,
                     {
-                        method: "DELETE"
+                        method: "DELETE",
+                        headers: authHeaders()
                     }
                 );
 
+                const result = await response.json();
+
                 if (!response.ok) {
-                    throw new Error("Failed to delete application");
+                    throw new Error(result.message || "Unable to delete application.");
                 }
 
-                fetchApplications();
-
+                await fetchApplications();
+                alert(result.message || "Application deleted successfully.");
             } catch (error) {
-                console.error(error);
-                alert("Unable to delete application.");
+                console.error("Delete application error:", error);
+                alert(error.message || "Unable to delete application.");
             }
         };
 
-        let editApplication = async (id) => {
+        // LOAD APPLICATION INTO THE EDIT FORM
+        const editApplication = async (id) => {
             try {
-                let response = await fetch(
-                    `https://jobvault-api-nump.onrender.com/applications/${id}`
+                const response = await fetch(
+                    `${API_URL}/${encodeURIComponent(id)}`,
+                    {
+                        headers: authHeaders()
+                    }
                 );
 
+                const result = await response.json();
+
                 if (!response.ok) {
-                    throw new Error("Failed to fetch application");
+                    throw new Error(result.message || "Unable to load application.");
                 }
 
-                let application = await response.json();
+                const application = normalizeApplication(result.application);
 
                 editingApplicationId = id;
 
@@ -881,27 +919,23 @@
                 jobLocation.value = application.location;
                 status.value = application.status;
                 date.value = application.date;
-                jobLink.value = application.jobLink || "";
-                notes.value = application.notes || "";
+                jobLink.value = application.jobLink;
+                notes.value = application.notes;
 
                 document.getElementById("addApplicationModalLabel").textContent =
                     "Edit Job Application";
 
-                let modalElement = document.getElementById("addApplicationModal");
-                let modal = bootstrap.Modal.getInstance(modalElement);
-
-                if (!modal) {
-                    modal = new bootstrap.Modal(modalElement);
-                }
+                const modalElement = document.getElementById("addApplicationModal");
+                const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
 
                 modal.show();
-
             } catch (error) {
-                console.error(error);
-                alert("Unable to load application.");
+                console.error("Edit application error:", error);
+                alert(error.message || "Unable to load application.");
             }
         };
 
+        // RESET THE FORM WHEN THE MODAL CLOSES
         document.getElementById("addApplicationModal").addEventListener(
             "hidden.bs.modal",
             () => {
@@ -917,10 +951,19 @@
         statusFilter.addEventListener("change", filterApplications);
         applicationForm.addEventListener("submit", handleSubmit);
 
-        let handleLogout = () => {
+        // Make functions available to the existing inline HTML handlers.
+        window.editApplication = editApplication;
+        window.deleteApplication = deleteApplication;
+
+        window.handleLogout = () => {
             sessionStorage.removeItem("currentUser");
             sessionStorage.removeItem("isLoggedIn");
             sessionStorage.removeItem("showWelcome");
+            sessionStorage.removeItem("token");
+            sessionStorage.removeItem("authToken");
+
+            localStorage.removeItem("token");
+            localStorage.removeItem("authToken");
 
             window.location.href = "index.html";
         };

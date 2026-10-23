@@ -1,0 +1,46 @@
+require("dotenv").config();
+
+const express = require("express");
+const cors = require("cors");
+const connectDB = require("./config/db");
+
+const app = express();
+const allowedOrigins = ["http://localhost:5500", "http://127.0.0.1:5500"];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+  }),
+);
+
+app.use(express.json());
+
+const authRoutes = require("./routes/auth.routes");
+const applicationRoutes = require("./routes/application.routes");
+
+app.use("/api/applications", applicationRoutes);
+app.use("/api/auth", authRoutes);
+
+app.get("/", (req, res) => {
+  res.json({
+    success: true,
+    message: "JobVault API is running",
+  });
+});
+
+const PORT = process.env.PORT || 5000;
+
+const startServer = async () => {
+  try {
+    await connectDB();
+
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`JobVault API running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Server startup failed:", error.message);
+    process.exit(1);
+  }
+};
+
+startServer();
